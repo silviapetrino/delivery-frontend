@@ -1,10 +1,22 @@
 <script>
+import Header from './components/partials/Header.vue';
+
   export default {
+    name: 'App',
+    components: {
+      Header
+    },
+    data(){
+      return {
+      
+      }
+    }
   
   }
 </script>
 <template>
-  <h1>Hello deliveboo</h1>
+  <Header />
+  
 </template>
 
 
