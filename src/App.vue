@@ -8,7 +8,7 @@ import Header from './components/partials/Header.vue';
     },
     data(){
       return {
-      
+        
       }
     }
   
@@ -16,6 +16,12 @@ import Header from './components/partials/Header.vue';
 </script>
 <template>
   <Header />
+
+  <div>
+    
+      <RouterView />
+    
+  </div>
   
 </template>
 

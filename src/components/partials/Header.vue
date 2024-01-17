@@ -6,15 +6,17 @@ export default {
 </script>
 
 <template>
-  <header>
+
+  <header class="bg-primary">
     <nav>
       <ul>
         <li>
-           <router-link :to="{name: 'home'}">home</router-link>
+           <router-link class="text-white" :to="{name: 'home'}">home</router-link>
         </li>
       </ul>
     </nav>
   </header>
+
 </template>
 
 

@@ -1,4 +1,6 @@
 import { createRouter , createWebHistory } from "vue-router";
+import Home from './pages/Home.vue';
+import Error404 from './pages/Error404.vue';
 
 const router = createRouter({
 history: createWebHistory(),
@@ -10,6 +12,7 @@ routes:[
      name: 'home',
      component: Home
   },
+ 
    // rotta 404 da mettere come ultima rotta
    {
       path: '/:pathMatch(.*)*',
