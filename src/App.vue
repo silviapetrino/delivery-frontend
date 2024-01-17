@@ -8,6 +8,8 @@
 </template>
 
 
-<style>
+<style lang="scss">
+
+@use  'bootstrap/scss/bootstrap' as *;
 
 </style>
