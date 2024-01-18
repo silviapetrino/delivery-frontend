@@ -1,14 +1,19 @@
 <script>
 import { store } from '../data/store';
 import axios from 'axios';
+import Loader from '../components/partials/Loader.vue';
 
 export default {
   name: 'Home',
+  components:{
+   Loader
+  },
   data() {
     return {
       store,
       selectedTypes: [],
-      restaurants: []
+      restaurants: [],
+      isLoading: true,
     }
   },
   methods: {
@@ -17,10 +22,12 @@ export default {
       axios.get(store.apiUrl + 'restaurants?' + typesQueryParam)
         .then(results => {
           this.restaurants = results.data;
+          this.isLoading = false;
         });
     },
     toggleType(typeName) {
       const index = this.selectedTypes.indexOf(typeName);
+      this.isLoading = true;
       if (index > -1) {
         this.selectedTypes.splice(index, 1);
       } else {
@@ -63,18 +70,30 @@ export default {
         </button>
       </li>
     </ul>
-    <div v-if="restaurants.length">
-      <h2 v-if="selectedTypes.length > 0"> Restaurants found : {{ restaurants.length }}</h2>
-      
-      <div v-for="restaurant in restaurants" :key="restaurant.id">
-        <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">{{ restaurant.name }}</router-link>
-
-      </div>
-      
+    <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
+       <Loader />
     </div>
+    
     <div v-else>
-      <h1>There are no restaurants that are both: {{ selectedTypes.join(' and ') }}</h1>
+          <div v-if="restaurants.length">
+              <h2 v-if="selectedTypes.length > 0"> Restaurants found : {{ restaurants.length }}</h2>
+          
+                  <div v-for="restaurant in restaurants" :key="restaurant.id">
+                    <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">{{ restaurant.name }}</router-link>
+
+                  </div>
+              
+      
+            </div>
+          
+            <div v-else>
+                <h1>There are no restaurants for these tipologies: {{ selectedTypes.join(', ') }}</h1>
+            </div>
+
     </div>
+    
+  
+  
   </section>
 </template>
 
