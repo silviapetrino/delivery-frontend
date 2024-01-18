@@ -26,7 +26,7 @@ export default {
       } else {
         this.selectedTypes.push(typeName);
       }
-      console.log(this.selectedTypes);
+     
       this.getApi(); // Aggiorna i ristoranti ogni volta che cambiano i tipi selezionati
     },
 
@@ -35,7 +35,7 @@ export default {
       axios.get(store.apiUrl + 'types')
       .then(results =>{
         store.types = results.data;
-        console.log(store.types);
+       
       })
     }
   },
@@ -53,7 +53,6 @@ export default {
     
     <ul class="d-flex gap-2 flex-wrap justify-content-center list-unstyled">
       <li v-for="type in store.types" :key="type.id">
-        {{ console.log(type) }}
         <button
            v-if="type.restaurants.length > 0"
           class="badge rounded-pill"
@@ -65,7 +64,13 @@ export default {
       </li>
     </ul>
     <div v-if="restaurants.length">
-      <p v-for="restaurant in restaurants" :key="restaurant.id">{{ restaurant.name }}</p>
+      <h2 v-if="selectedTypes.length > 0"> Restaurants found : {{ restaurants.length }}</h2>
+      
+      <div v-for="restaurant in restaurants" :key="restaurant.id">
+        <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">{{ restaurant.name }}</router-link>
+
+      </div>
+      
     </div>
     <div v-else>
       <h1>There are no restaurants that are both: {{ selectedTypes.join(' and ') }}</h1>
