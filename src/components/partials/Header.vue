@@ -1,6 +1,12 @@
 <script>
+import { store } from '../../data/store';
 export default {
-  name: 'header'
+  name: 'header',
+  data(){
+    return{
+      store,
+    }
+  }
 }
 </script>
 
@@ -40,10 +46,14 @@ export default {
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            Products:
-            <ul>
-              <li>product1</li>
-            </ul>
+            <div class="container" id="cart">
+  <h1>il mio carrello!</h1>
+  <ul>
+    <li v-for="(product , index) in store.cart" :key="index">{{ console.log(product)
+     }}
+     {{ product.name }}<button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
+  </ul>
+</div>
           </div>
         </div>
       

@@ -29,18 +29,18 @@ export default {
     },
      
     addToCart(product){
-      this.cart.push(product);
+      store.cart.push(product);
       
       this.saveCart();
     },
     
     removeFromCart(index){
-      this.cart.splice(index , 1);
+      store.cart.splice(index , 1);
       this.saveCart();
     },
 
     saveCart(){
-      localStorage.setItem('cart', JSON.stringify(this.cart));
+      localStorage.setItem('cart', JSON.stringify(store.cart));
     }
 
 
@@ -50,7 +50,7 @@ export default {
   created(){
     const cart = JSON.parse(localStorage.getItem('cart'));
     if (cart){
-      this.cart = cart;
+      store.cart = cart;
     }
   },
   mounted() {
@@ -90,7 +90,7 @@ export default {
                 <p class="card-text">{{product.description}}</p>
                 <p>Ingredients: {{ product.ingredients }}</p>
                 <button @click="addToCart(product)" class="btn btn-primary">Add to cart</button>
-                <button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button>
+                
               </div>
             </div>
           </div>
@@ -99,14 +99,6 @@ export default {
       </div>
     </div>
   
-
-<div class="container" id="cart">
-  <h1>il mio carrello!</h1>
-  <ul>
-    <li v-for="(product , index) in cart" :key="index">{{ console.log(product)
-     }}</li>
-  </ul>
-</div>
 </template>
 
 <style lang="scss" scoped>
