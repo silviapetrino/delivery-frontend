@@ -48,14 +48,15 @@ export default {
 
 <template>
 
-<h1>homepage</h1>
+<!-- <h1>homepage</h1> -->
   <section class="container">
+    
     <ul class="d-flex gap-2 flex-wrap justify-content-center list-unstyled">
       <li v-for="type in store.types" :key="type.id">
         {{ console.log(type) }}
         <button
            v-if="type.restaurants.length > 0"
-          class="badge rounded-pill text-bg-primary"
+          class="badge rounded-pill"
           :class="{'active-type': selectedTypes.includes(type.name)}"
           @click="toggleType(type.name)"
         >
@@ -73,8 +74,17 @@ export default {
 </template>
 
 
-<style lang="scss">
-    .active-type{
-      color: red !important;
-    }
+<style lang="scss" scoped>
+@use '../scss/main.scss' as *;
+
+li button {
+  background-color: $secondary_color !important;
+  color: $primary_color;
+}
+
+.active-type{
+  
+  background-color: $detail_color !important;
+}
+
 </style>

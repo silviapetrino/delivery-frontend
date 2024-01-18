@@ -1,10 +1,12 @@
 <script>
 import Header from './components/partials/Header.vue';
+import Jumbotron from './components/partials/Jumbotron.vue';
 
   export default {
     name: 'App',
     components: {
-      Header
+      Header,
+      Jumbotron
     },
     data(){
       return {
@@ -16,7 +18,7 @@ import Header from './components/partials/Header.vue';
 </script>
 <template>
   <Header />
-
+  <Jumbotron />
   <div>
     
       <RouterView />
@@ -29,5 +31,11 @@ import Header from './components/partials/Header.vue';
 <style lang="scss">
 
 @use  'bootstrap/scss/bootstrap' as *;
+@use 'scss/main.scss' as *;
+
+body {
+  background-color: $primary_color;
+  color: $secondary_color;
+}
 
 </style>
