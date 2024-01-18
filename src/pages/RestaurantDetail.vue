@@ -11,7 +11,7 @@ export default {
       restaurant_id:'',
       restaurant: {},
       isLoading: true,
-      cart: []
+      
     }
   },
 
@@ -29,7 +29,17 @@ export default {
     },
      
     addToCart(product){
-      store.cart.push(product);
+
+      let existingProduct = store.cart.find(productInCart => productInCart.id === product.id); //funzione di callback per cercare elemento nell'array. Ciclo tutti i product presenti nel carrello e per ognuno verifico se il suo id è uguale all'id di product passato come parametro nella funzione. Se non trovo nulla sarà UNDEFINED, se lo trovo sfrutterò solo la sua quantity (vedi if sottostante.. se il prodotto esiste uso la quantity... ALTRIMENTI lo pusho normalmente nel carrello).
+        if (existingProduct) {
+          // Aggiorna solo la quantità se il prodotto è già nel carrello
+          existingProduct.quantity += product.quantity;
+        } else {
+          // Aggiungi il nuovo prodotto con la sua quantità al carrello
+      
+          store.cart.push(product);
+        }
+
       
       this.saveCart();
     },
@@ -75,7 +85,7 @@ export default {
         <h1 class="text-center mb-5">{{restaurant.name}}</h1>
     
         <div class="d-flex gap-5 flex-wrap justify-content-center">
-          <div v-for="(product) in restaurant.products" :key="product.id">
+          <div v-for="product in restaurant.products" :key="product.id">
     
             <div v-if="product.visibility == 1"  class="card" style="width: 18rem;">
       
@@ -85,6 +95,7 @@ export default {
                 <span>{{ product.price }} &euro; </span>
                 <p class="card-text">{{product.description}}</p>
                 <p>Ingredients: {{ product.ingredients }}</p>
+                <input type="number" v-model.number="product.quantity" min="1" class="form-control mb-2" placeholder="Quantity">
                 <button @click="addToCart(product)" class="btn btn-primary">Add to cart</button>
                 
               </div>
