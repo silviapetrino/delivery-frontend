@@ -34,11 +34,7 @@ export default {
       this.saveCart();
     },
     
-    removeFromCart(index){
-      store.cart.splice(index , 1);
-      this.saveCart();
-    },
-
+  
     saveCart(){
       localStorage.setItem('cart', JSON.stringify(store.cart));
     }
@@ -98,6 +94,7 @@ export default {
         </div>
       </div>
     </div>
+
   
 </template>
 

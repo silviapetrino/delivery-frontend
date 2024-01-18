@@ -6,7 +6,14 @@ export default {
     return{
       store,
     }
-  }
+  },
+
+  methods: {
+    removeFromCart(index){
+      store.cart.splice(index , 1);
+      
+    },
+  },
 }
 </script>
 
@@ -36,9 +43,14 @@ export default {
 
       <div class="shop">
 
-        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-          <i class="fa-solid fa-cart-shopping"></i>
-        </button>
+        <div class="cart-container position-relative">
+          <div class="cart-counter position-absolute d-flex justify-content-center align-items-center ">
+            <span>{{ store.cart.length}}</span>
+          </div>
+          <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </div>
 
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
@@ -48,12 +60,12 @@ export default {
           <div class="offcanvas-body">
             <div class="container" id="cart">
   <h1>il mio carrello!</h1>
-  <ul>
-    <li v-for="(product , index) in store.cart" :key="index">{{ console.log(product)
-     }}
-     {{ product.name }}<button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
-  </ul>
-</div>
+      <ul>
+        <li v-for="(product , index) in store.cart" :key="index">{{ console.log(product)
+        }}
+        {{ product.name }}<button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
+      </ul>
+  </div>
           </div>
         </div>
       
@@ -74,6 +86,7 @@ header {
   background-color: $tertiary_color;
   color: $secondary_color;
   button i {
+    font-size: 2rem;
     color: $secondary_color;
     &:hover {
       color: $primary_color;
@@ -100,5 +113,20 @@ header {
 
 li {
   margin: 0 10px 0 0;
+}
+
+.cart-counter{
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background-color: red;
+  right: 0;
+  top: -5px;
+  span{
+    color: white;
+    font-weight: 800;
+  }
+  
+
 }
 </style>
