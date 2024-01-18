@@ -79,7 +79,7 @@ export default {
         <h1 class="text-center mb-5">{{restaurant.name}}</h1>
     
         <div class="d-flex gap-5 flex-wrap justify-content-center">
-          <div v-for="(product, index) in restaurant.products" :key="product.id">
+          <div v-for="(product) in restaurant.products" :key="product.id">
     
             <div v-if="product.visibility == 1"  class="card" style="width: 18rem;">
       
