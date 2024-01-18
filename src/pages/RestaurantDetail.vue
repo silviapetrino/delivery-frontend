@@ -11,7 +11,6 @@ export default {
       restaurant_id:'',
       restaurant: {},
       isLoading: true,
-      cart: []
     }
   },
 
