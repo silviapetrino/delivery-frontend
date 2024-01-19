@@ -32,20 +32,35 @@ export default {
     },
      
     addToCart(product, quantity){
-      
+    
+
       //"ciclo" tutti i prodotti già nel carrello guardando se ne trovo uno che abbia l'id uguale al prodotto che sto cercando di aggiungere (se non ne trovo qui mi risulta UNDEFINED)
       let existingProduct = store.cart.find(productInCart => productInCart.id === product.id);
+    
+      //if di controllo per avere prodotti da un solo ristorante alla volta, il vero funzionamento del tutto è dopo l'else.
 
-      //SE let existingProduct esiste: aggiungo alla quantità del prodotto nel carrello la quantity che passo come parametro in addToCart()
-      if (existingProduct) {
-        existingProduct.quantity += parseInt(quantity);
-      } else {  //SE è undefined pusho il prodotto aggiungendo all'oggetto la proprietà "quantity" = quantità che passo come parametro nella function
+      if(store.cart.length > 0){
+        if(product.restaurant_id !== store.cart[0].restaurant_id){
+        alert('you can only add products from a single restaurant per order.')
+        product.tempQuantity = 1;
+        }else{
+          //SE let existingProduct esiste: aggiungo alla quantità del prodotto nel carrello la quantity che passo come parametro in addToCart()
+          if (existingProduct) {
+            existingProduct.quantity += parseInt(quantity);
+          } else {  //SE è undefined pusho il prodotto aggiungendo all'oggetto la proprietà "quantity" = quantità che passo come parametro nella function
+            store.cart.push({ ...product, quantity: parseInt(quantity) });
+          }
+          /*  console.log(store.cart[0].restaurant_id); */
+          this.saveCart(); 
+          
+          product.tempQuantity = 1;  //resetto la tempQuantity per scopi grafici nell'input DOPO aver salvato
+        }
+      }else{
+
         store.cart.push({ ...product, quantity: parseInt(quantity) });
+        this.saveCart(); 
       }
       
-      this.saveCart(); 
-      
-      product.tempQuantity = 1;  //resetto la tempQuantity per scopi grafici nell'input DOPO aver salvato
     },
     
     removeFromCart(index){
@@ -103,6 +118,7 @@ export default {
           
               <img class="card-img-top" :src="product.image" alt="Card image cap">
               <div class="card-body">
+                {{ product }}
                 <h5 class="card-title">{{product.name}} </h5>
                 <span>{{ product.price }} &euro; </span>
                 <p class="card-text">{{product.description}}</p>
