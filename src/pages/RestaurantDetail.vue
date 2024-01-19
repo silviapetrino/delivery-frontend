@@ -1,54 +1,3 @@
-<template>
-  <div v-if="isLoading" class="d-flex justify-content-center pt-5">
-    <Loader />
-  </div>
-
-  <div v-else>
-    <div v-if="restaurant.products.length === 0">
-      <h2>Sorry, no products available for this restaurant.</h2>
-    </div>
-
-    <div v-else>
-      <h1 class="text-center mb-5">{{ restaurant.name }}</h1>
-      <div class="d-flex gap-5 flex-wrap justify-content-center">
-        <div v-for="product in restaurant.products" :key="product.id">
-          <div v-if="product.visibility == 1" class="card" style="width: 18rem;">
-            <img class="card-img-top p-5" :src="product.image" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{ product.name }} </h5>
-              <span>{{ product.price }} &euro; </span>
-              <p class="card-text">{{ product.description }}</p>
-              <p>Ingredients: {{ product.ingredients }}</p>
-              <div class="actions d-flex justify-content-center mb-2 rounded-3">
-                <button
-                  @click="removeFromCart(product, product.tempQuantity)"
-                  :class="{ 'btn btn-danger p-2 fw-bold rounded-0': isInCart(product), 'btn btn-secondary p-2 fw-bold rounded-0': !isInCart(product) }"
-                >
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <input
-                  type="number"
-                  v-model.number="product.tempQuantity"
-                  min="1"
-                  class="form-control p-2 rounded-0"
-                  placeholder="Quantity"
-                  style="width:60px;"
-                />
-                <button @click="addToCart(product, product.tempQuantity)" class="btn btn-success p-2 fw-bold rounded-0">
-                  <i class="fa-solid fa-plus"></i>
-                </button>
-              </div>
-              <div class="message">
-                <span>{{ message[product.id] }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import { store } from '../data/store';
 import axios from 'axios';
@@ -62,8 +11,10 @@ export default {
       restaurant_id: '',
       restaurant: {},
       isLoading: true,
-      message: {},
-    };
+      message : {},
+      showModal: false,
+      error: false
+    }
   },
 
   components: {
@@ -85,12 +36,21 @@ export default {
       if (store.cart.length >= 0) {
         this.message[product.id] = `You added ${quantity} ${product.name} to the cart!`;
       }
-      let existingProduct = store.cart.find((productInCart) => productInCart.id === product.id);
-      if (store.cart.length > 0) {
-        if (product.restaurant_id !== store.cart[0].restaurant_id) {
-          alert('you can only add products from a single restaurant per order.');
-          product.tempQuantity = 1;
-        } else {
+
+      //"ciclo" tutti i prodotti già nel carrello guardando se ne trovo uno che abbia l'id uguale al prodotto che sto cercando di aggiungere (se non ne trovo qui mi risulta UNDEFINED)
+      let existingProduct = store.cart.find(productInCart => productInCart.id === product.id);
+    
+      //if di controllo per avere prodotti da un solo ristorante alla volta, il vero funzionamento del tutto è dopo l'else.
+
+      if(store.cart.length > 0){
+        if(product.restaurant_id !== store.cart[0].restaurant_id){
+        // alert('you can only add products from a single restaurant per order.')
+        product.tempQuantity = 1;
+        this.error = true;
+        this.showModal = true; 
+        return;
+        }else{
+          //SE let existingProduct esiste: aggiungo alla quantità del prodotto nel carrello la quantity che passo come parametro in addToCart()
           if (existingProduct) {
             existingProduct.quantity += parseInt(quantity);
           } else {
@@ -108,32 +68,18 @@ export default {
       }, 3500);
     },
 
-    removeFromCart(product, quantity) {
-      if (this.isInCart(product)) {
-        const existingProductIndex = store.cart.findIndex((item) => item.id === product.id);
-        if (existingProductIndex !== -1) {
-          const existingProduct = store.cart[existingProductIndex];
-          if (existingProduct.quantity > quantity) {
-            existingProduct.quantity -= quantity;
-            this.message[product.id] = `You removed ${quantity} ${product.name} from the cart!`;
-          } else {
-            store.cart.splice(existingProductIndex, 1);
-            this.message[product.id] = `You removed all the ${product.name} from the cart!`;
-          }
-          this.saveCart();
-        }
-        setTimeout(() => {
-          this.message[product.id] = '';
-        }, 3500);
+    decreaseQuantity(product){
+      if(product.tempQuantity > 1){
+      product.tempQuantity--;
       }
+    },
+    
+    increaseQuantity(product){
+        product.tempQuantity++;
     },
 
     saveCart() {
       localStorage.setItem('cart', JSON.stringify(store.cart));
-    },
-
-    isInCart(product) {
-      return store.cart.some((item) => item.id === product.id);
     },
   },
 
@@ -151,6 +97,97 @@ export default {
 };
 </script>
 
+<template>
+      <!-- modal  -->
+    <div v-if="this.error" class="container">
+      <div class="modal" tabindex="-1" role="dialog" :class="{ 'show': showModal }">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="fs-4 fw-bold modal-title">We are sorry!</h5>
+              <button type="button" class="close btn btn-danger" @click="showModal = false">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+              <p class="fs-4 fw-bold">You can only add products from a single restaurant per order!</p>
+              <div class="image w-50">
+                <img class="w-100" src="/img/sorry-or-404.png" alt="error">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" @click="showModal = false">Close</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+  </div>
+     <!-- /modal  -->
+
+  <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
+    <Loader />
+  </div>
+  
+  
+  <div v-else>
+
+
+    <div v-if="restaurant.products.length === 0">
+        <h2>Sorry, no products available for this resaurant.</h2>
+    </div>
+    
+    <div v-else>
+    
+        <h1 class="text-center mb-5">{{restaurant.name}}</h1>
+    
+        <div class="d-flex gap-5 flex-wrap justify-content-center">
+          <div v-for="product in restaurant.products" :key="product.id">
+            <div v-if="product.visibility == 1"  class="card" style="width: 18rem;">
+            {{ product }}
+              <img class="card-img-top" :src="product.image" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{product.name}} </h5>
+                <span>{{ product.price }} &euro; </span>
+                <p class="card-text">{{product.description}}</p>
+                <p>Ingredients: {{ product.ingredients }}</p>
+                <div class="actions d-flex justify-content-center mb-2 rounded-3">
+                <button
+                  @click="decreaseQuantity(product)"
+                  class="btn btn-danger p-2 fw-bold rounded-0"
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <input
+                  type="number"
+                  v-model.number="product.tempQuantity"
+                  min="1"
+                  class="form-control p-2 rounded-0"
+                  placeholder="1"
+                  style="width:60px;
+                  "
+                  readonly
+                />
+                <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-0">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <button @click="addToCart(product, product.tempQuantity)" class="btn btn-primary p-2 fw-bold rounded-0 w-100">
+                  Add to cart
+                </button>
+                <div v-if="!this.error" class="message">
+                  <span>{{ message[product.id] }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    
+</template>
+
 <style lang="scss" scoped>
 #cart{
   border: 1px solid black;
@@ -158,4 +195,22 @@ export default {
 .message{
   color: red;
 }
+//  modal 
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+
+    &.show {
+      display: block;
+    }
+  }
+
+  //  modal 
 </style>
