@@ -11,6 +11,7 @@ export default {
       restaurant_id:'',
       restaurant: {},
       isLoading: true,
+      message : {}
     }
   },
 
@@ -32,7 +33,10 @@ export default {
     },
      
     addToCart(product, quantity){
-    
+
+      if(store.cart.length >= 0){
+        this.message[product.id] = `Added ${quantity} to cart!`; 
+      }
 
       //"ciclo" tutti i prodotti già nel carrello guardando se ne trovo uno che abbia l'id uguale al prodotto che sto cercando di aggiungere (se non ne trovo qui mi risulta UNDEFINED)
       let existingProduct = store.cart.find(productInCart => productInCart.id === product.id);
@@ -43,23 +47,34 @@ export default {
         if(product.restaurant_id !== store.cart[0].restaurant_id){
         alert('you can only add products from a single restaurant per order.')
         product.tempQuantity = 1;
+        
         }else{
           //SE let existingProduct esiste: aggiungo alla quantità del prodotto nel carrello la quantity che passo come parametro in addToCart()
           if (existingProduct) {
             existingProduct.quantity += parseInt(quantity);
+           
           } else {  //SE è undefined pusho il prodotto aggiungendo all'oggetto la proprietà "quantity" = quantità che passo come parametro nella function
             store.cart.push({ ...product, quantity: parseInt(quantity) });
+           
           }
           /*  console.log(store.cart[0].restaurant_id); */
           this.saveCart(); 
           
           product.tempQuantity = 1;  //resetto la tempQuantity per scopi grafici nell'input DOPO aver salvato
+
+          
+          
         }
       }else{
 
         store.cart.push({ ...product, quantity: parseInt(quantity) });
         this.saveCart(); 
       }
+
+      setTimeout(() => {
+            this.message[product.id] = '';
+          }, 2000);
+     
       
     },
     
@@ -67,10 +82,7 @@ export default {
       store.cart.splice(index , 1);
       this.saveCart();
     },
-    clearCart() {
-      store.cart = [];
-      this.saveCart();
-    },
+   
     saveCart(){
       localStorage.setItem('cart', JSON.stringify(store.cart));
     }
@@ -125,7 +137,9 @@ export default {
                 <p>Ingredients: {{ product.ingredients }}</p>
                 <input type="number" v-model.number="product.tempQuantity" min="1" class="form-control mb-2" placeholder="Quantity">
                 <button @click="addToCart(product, product.tempQuantity)" class="btn btn-success">Add to cart</button>
-                
+                <div class="message">
+                  <span>{{ message[product.id] }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -133,11 +147,14 @@ export default {
         </div>
       </div>
     </div>
-    <button @click="clearCart(product)" class="btn btn-primary">clear cart</button>
+    
 </template>
 
 <style lang="scss" scoped>
 #cart{
   border: 1px solid black;
+}
+.message{
+  color: red;
 }
 </style>

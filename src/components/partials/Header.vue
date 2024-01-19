@@ -15,7 +15,11 @@ export default {
 
     saveCart(){
       localStorage.setItem('cart', JSON.stringify(store.cart));
-    }
+    },
+    clearCart() {
+      store.cart = [];
+      this.saveCart();
+    },
 
   },
 }
@@ -63,14 +67,15 @@ export default {
       </div>
       <div class="offcanvas-body">
         <div class="container" id="cart">
-    <h1>il mio carrello!</h1>
-      <ul>
-        <li v-for="(product , index) in store.cart" :key="index">
-        <span>{{ product.quantity }}</span>
-        <span>{{ product.name }}</span>
-        <button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
-      </ul>
-    </div>
+        <h1>il mio carrello!</h1>
+          <ul>
+            <li v-for="(product , index) in store.cart" :key="index">
+            <span>{{ product.quantity }}</span>
+            <span>{{ product.name }}</span>
+            <button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
+          </ul>
+          <button @click="clearCart(product)" class="btn btn-primary">clear cart</button>
+        </div>
       </div>
     </div>
   
