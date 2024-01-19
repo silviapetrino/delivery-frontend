@@ -11,7 +11,6 @@ export default {
       restaurant_id:'',
       restaurant: {},
       isLoading: true,
-      cart: []
     }
   },
 
@@ -38,10 +37,14 @@ export default {
       store.cart.splice(index , 1);
       this.saveCart();
     },
-
+    clearCart() {
+      store.cart = [];
+      this.saveCart();
+    },
     saveCart(){
       localStorage.setItem('cart', JSON.stringify(store.cart));
     }
+    
 
 
 
@@ -98,7 +101,7 @@ export default {
         </div>
       </div>
     </div>
-  
+    <button @click="clearCart(product)" class="btn btn-primary">clear cart</button>
 </template>
 
 <style lang="scss" scoped>

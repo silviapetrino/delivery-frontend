@@ -58,13 +58,12 @@ export default {
           </div>
           <div class="offcanvas-body">
             <div class="container" id="cart">
-  <h1>il mio carrello!</h1>
-  <ul>
-    <li v-for="(product , index) in store.cart" :key="index">{{ console.log(product)
-     }}
-     {{ product.name }}<button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
-  </ul>
-</div>
+              <h1>il mio carrello!</h1>
+              <ul>
+                <li v-for="(product , index) in store.cart" :key="index">{{ console.log(product)}}
+                {{ product.name }}<button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
+              </ul>
+            </div>
           </div>
         </div>
       
