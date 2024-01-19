@@ -20,6 +20,25 @@ export default {
       store.cart = [];
       this.saveCart();
     },
+    decreaseQuantity(index){
+      const product = store.cart[index];
+      if(product.quantity > 0){
+        product.quantity--;
+        if(product.quantity === 0){
+          this.removeFromCart(index);
+        }
+        this.saveCart();
+      }
+      
+      
+    },
+    increaseQuantity(index){
+      const product = store.cart[index];
+      if(product.quantity > 0){
+        product.quantity++;
+        this.saveCart();
+      }
+    },
 
   },
 }
@@ -70,9 +89,12 @@ export default {
         <h1>il mio carrello!</h1>
           <ul>
             <li v-for="(product , index) in store.cart" :key="index">
-            <span>{{ product.quantity }}</span>
-            <span>{{ product.name }}</span>
-            <button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button></li>
+              <span>{{ product.quantity }}</span>
+              <span>{{ product.name }}</span>
+              <button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button>
+              <button @click="() => decreaseQuantity(index)" class="btn btn-warning">-</button>
+              <button @click="() => increaseQuantity(index)" class="btn btn-success">+</button>
+            </li>
           </ul>
           <button @click="clearCart(product)" class="btn btn-primary">clear cart</button>
         </div>
