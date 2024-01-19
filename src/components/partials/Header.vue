@@ -27,13 +27,13 @@ export default {
 
 <template>
 
-<header class="">
+<header>
 
-<div class="container d-flex justify-content-between align-items-center h-100">
+<div class="container d-flex justify-content-between align-items-center h-100 debug">
 
   <nav class="d-flex align-items-center h-100">
-    <div class="logo d-flex ">
-      <img src="../../../img/logo.JPG" alt="">
+    <div class="logo d-flex">
+      <img src="/img/DeliveBoo-img.png" alt="logo">
       <h3 class=" d-none d-sm-block ">Deliveboo</h3>
     </div>
     <ul class="d-flex">

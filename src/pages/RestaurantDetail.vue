@@ -11,7 +11,9 @@ export default {
       restaurant_id:'',
       restaurant: {},
       isLoading: true,
-      message : {}
+      message : {},
+      showModal: false,
+      error: false
     }
   },
 
@@ -45,9 +47,11 @@ export default {
 
       if(store.cart.length > 0){
         if(product.restaurant_id !== store.cart[0].restaurant_id){
-        alert('you can only add products from a single restaurant per order.')
+        // alert('you can only add products from a single restaurant per order.')
         product.tempQuantity = 1;
-        
+        this.error = true;
+        this.showModal = true; 
+        return;
         }else{
           //SE let existingProduct esiste: aggiungo alla quantità del prodotto nel carrello la quantity che passo come parametro in addToCart()
           if (existingProduct) {
@@ -107,6 +111,32 @@ export default {
 </script>
 
 <template>
+      <!-- modal  -->
+    <div v-if="this.error" class="container">
+      <div class="modal" tabindex="-1" role="dialog" :class="{ 'show': showModal }">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="fs-4 fw-bold modal-title">We are sorry!</h5>
+              <button type="button" class="close btn btn-danger" @click="showModal = false">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+              <p class="fs-4 fw-bold">You can only add products from a single restaurant per order!</p>
+              <div class="image w-50">
+                <img class="w-100" src="/img/sorry-or-404.png" alt="error">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" @click="showModal = false">Close</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+  </div>
+     <!-- /modal  -->
 
   <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
     <Loader />
@@ -114,11 +144,12 @@ export default {
   
   
   <div v-else>
-  
+
+
     <div v-if="restaurant.products.length === 0">
         <h2>Sorry, no products available for this resaurant.</h2>
     </div>
-
+    
     <div v-else>
       
         <h1 class="text-center mb-5">{{restaurant.name}}</h1>
@@ -137,7 +168,7 @@ export default {
                 <p>Ingredients: {{ product.ingredients }}</p>
                 <input type="number" v-model.number="product.tempQuantity" min="1" class="form-control mb-2" placeholder="Quantity">
                 <button @click="addToCart(product, product.tempQuantity)" class="btn btn-success">Add to cart</button>
-                <div class="message">
+                <div v-if="!this.error" class="message">
                   <span>{{ message[product.id] }}</span>
                 </div>
               </div>
@@ -157,4 +188,22 @@ export default {
 .message{
   color: red;
 }
+//  modal 
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+
+    &.show {
+      display: block;
+    }
+  }
+
+  //  modal 
 </style>
