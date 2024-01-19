@@ -108,45 +108,49 @@ export default {
 
 <template>
 
-  <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
-    <Loader />
-  </div>
-  
-  
-  <div v-else>
-  
-    <div v-if="restaurant.products.length === 0">
-        <h2>Sorry, no products available for this resaurant.</h2>
+  <div class="container">
+    
+    <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
+      <Loader />
     </div>
-
+    
+    
     <div v-else>
+    
+      <div v-if="restaurant.products.length === 0">
+          <h2>Sorry, no products available for this resaurant.</h2>
+      </div>
+  
+      <div v-else>
+        
+          <h1 class="text-center mb-5">{{restaurant.name}}</h1>
       
-        <h1 class="text-center mb-5">{{restaurant.name}}</h1>
-    
-        <div class="d-flex gap-5 flex-wrap justify-content-center">
-          <div v-for="product in restaurant.products" :key="product.id">
-    
-            <div v-if="product.visibility == 1"  class="card" style="width: 18rem;">
-          
-              <img class="card-img-top" :src="product.image" alt="Card image cap">
-              <div class="card-body">
-                {{ product }}
-                <h5 class="card-title">{{product.name}} </h5>
-                <span>{{ product.price }} &euro; </span>
-                <p class="card-text">{{product.description}}</p>
-                <p>Ingredients: {{ product.ingredients }}</p>
-                <input type="number" v-model.number="product.tempQuantity" min="1" class="form-control mb-2" placeholder="Quantity">
-                <button @click="addToCart(product, product.tempQuantity)" class="btn btn-success">Add to cart</button>
-                <div class="message">
-                  <span>{{ message[product.id] }}</span>
+          <div class="d-flex gap-5 flex-wrap justify-content-center">
+            <div v-for="product in restaurant.products" :key="product.id">
+      
+              <div v-if="product.visibility == 1"  class="card" style="width: 18rem;">
+            
+                <img class="card-img-top" :src="product.image" alt="Card image cap">
+                <div class="card-body">
+                  
+                  <h5 class="card-title">{{product.name}} </h5>
+                  <span>{{ product.price }} &euro; </span>
+                  <p class="card-text">{{product.description}}</p>
+                  <p>Ingredients: {{ product.ingredients }}</p>
+                  <input type="number" v-model.number="product.tempQuantity" min="1" class="form-control mb-2" placeholder="Quantity">
+                  <button @click="addToCart(product, product.tempQuantity)" class="btn btn-success">Add to cart</button>
+                  <div class="message">
+                    <span>{{ message[product.id] }}</span>
+                  </div>
                 </div>
               </div>
             </div>
+      
           </div>
-    
         </div>
       </div>
-    </div>
+      
+  </div>
     
 </template>
 
