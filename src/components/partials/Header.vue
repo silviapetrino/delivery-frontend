@@ -6,7 +6,18 @@ export default {
     return{
       store,
     }
-  }
+  },
+  methods: {
+    removeFromCart(index){
+      store.cart.splice(index , 1);
+      this.saveCart();
+    },
+
+    saveCart(){
+      localStorage.setItem('cart', JSON.stringify(store.cart));
+    }
+
+  },
 }
 </script>
 
