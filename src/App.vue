@@ -1,12 +1,10 @@
 <script>
 import Header from './components/partials/Header.vue';
-import Jumbotron from './components/partials/Jumbotron.vue';
 
   export default {
     name: 'App',
     components: {
       Header,
-      Jumbotron
     },
     data(){
       return {
@@ -18,8 +16,7 @@ import Jumbotron from './components/partials/Jumbotron.vue';
 </script>
 <template>
   <Header />
-  <Jumbotron />
-  <div>
+  <div class="page">
     
       <RouterView />
     
@@ -36,6 +33,9 @@ import Jumbotron from './components/partials/Jumbotron.vue';
 body {
   background-color: $primary_color;
   color: $secondary_color;
+  .page{
+    padding-top: 70px ;
+  }
 }
 
 </style>

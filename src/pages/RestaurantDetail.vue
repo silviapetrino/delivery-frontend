@@ -119,18 +119,15 @@ export default {
               <button type="button" class="btn btn-warning" @click="showModal = false">Close</button>
             </div>
           </div>
-        </div>
-        
+        </div> 
       </div>
-  </div>
+    </div>
      <!-- /modal  -->
-
   <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
     <Loader />
   </div>
   
-  
-  <div v-else>
+  <div v-else class="container">
 
 
     <div v-if="restaurant.products.length === 0">
@@ -141,37 +138,29 @@ export default {
     
         <h1 class="text-center mb-5">{{restaurant.name}}</h1>
     
-        <div class="d-flex gap-5 flex-wrap justify-content-center">
+        <div class="d-flex gap-5 flex-wrap justify-content-center justify-content-xxl-start">
           <div v-for="product in restaurant.products" :key="product.id">
-            <div v-if="product.visibility == 1"  class="card" style="width: 18rem;">
-            {{ product }}
-              <img class="card-img-top" :src="product.image" alt="Card image cap">
+            <div v-if="product.visibility == 1"  class="card cs-card" style="width: 18rem;">
+              <img class="card-img-top px-5 pt-5" :src="product.image" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{product.name}} </h5>
                 <span>{{ product.price }} &euro; </span>
-                <p class="card-text">{{product.description}}</p>
-                <p>Ingredients: {{ product.ingredients }}</p>
-                <div class="actions d-flex justify-content-center mb-2 rounded-3">
-                <button
-                  @click="decreaseQuantity(product)"
-                  class="btn btn-danger p-2 fw-bold rounded-0"
-                >
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <input
-                  type="number"
-                  v-model.number="product.tempQuantity"
-                  min="1"
-                  class="form-control p-2 rounded-0"
-                  placeholder="1"
-                  style="width:60px;
-                  "
-                  readonly
-                />
-                <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-0">
-                  <i class="fa-solid fa-plus"></i>
-                </button>
-              </div>
+                <div class="info">
+                  <p>Ingredients: {{ product.ingredients }}</p> 
+                  <p class="card-text">{{product.description}}</p>
+                </div>
+                <div class="actions d-flex justify-content-center align-items-center my-2 rounded-3 gap-3">
+                  <button
+                    @click="decreaseQuantity(product)"
+                    class="btn btn-danger p-2 fw-bold rounded-0"
+                  >
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                  <span>{{ product.tempQuantity }}</span>
+                  <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-0">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                </div>
               <button @click="addToCart(product, product.tempQuantity)" class="btn btn-primary p-2 fw-bold rounded-0 w-100">
                   Add to cart
                 </button>
@@ -209,6 +198,13 @@ export default {
 
     &.show {
       display: block;
+    }
+  }
+  .card.cs-card {
+    height: 500px;
+    .info{
+      height: 70px;
+      overflow-y:auto;
     }
   }
 

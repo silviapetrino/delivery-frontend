@@ -53,22 +53,22 @@ export default {
 
 <header>
 
-<div class="container d-flex justify-content-between align-items-center h-100 debug">
+<div class="container d-flex justify-content-between align-items-center h-100">
 
-  <nav class="d-flex align-items-center h-100">
-    <div class="logo d-flex">
+  <nav class="d-flex align-items-center h-100 gap-5">
+    <div class="logo d-flex align-items-center">
       <img src="/img/DeliveBoo-img.png" alt="logo">
-      <h3 class=" d-none d-sm-block ">Deliveboo</h3>
+      <h3 class=" d-none d-sm-block m-0 p-0">DeliveBoo</h3>
     </div>
-    <ul class="d-flex">
+    <ul class="d-flex p-0 m-0 gap-3">
       <li>
-         <router-link :to="{name: 'home'}">Home</router-link>
+        <router-link :to="{name: 'home'}">Home</router-link>
       </li>
       <li>
-        <a href="#">Restaurants</a>
+        <router-link :to="{name: 'restaurants'}">Restaurants</router-link>
       </li>
       <li>
-        <a href="#">About Us</a>
+        <router-link :to="{name: 'aboutUs'}">About Us</router-link>
       </li>
     </ul>
   </nav>
@@ -174,16 +174,13 @@ h3 {
   font-weight: 700;
 }
 img {
-  width: 40px;
+  width: 60px;
   border-radius: 35%;
   margin: 0 5px 0 0;
 }
 }
 }
 
-li {
-margin: 0 10px 0 0;
-}
 
 .cart-counter{
 width: 1.4rem;
