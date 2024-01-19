@@ -22,15 +22,13 @@ export default {
     },
     decreaseQuantity(index){
       const product = store.cart[index];
-      if(product.quantity > 0){
+      if(product.quantity > 1){
         product.quantity--;
         if(product.quantity === 0){
           this.removeFromCart(index);
         }
         this.saveCart();
       }
-      
-      
     },
     increaseQuantity(index){
       const product = store.cart[index];
@@ -53,13 +51,13 @@ export default {
 
 <template>
 
-<header class="">
+<header>
 
-<div class="container d-flex justify-content-between align-items-center h-100">
+<div class="container d-flex justify-content-between align-items-center h-100 debug">
 
   <nav class="d-flex align-items-center h-100">
-    <div class="logo d-flex ">
-      <img src="../../../img/logo.JPG" alt="">
+    <div class="logo d-flex">
+      <img src="/img/DeliveBoo-img.png" alt="logo">
       <h3 class=" d-none d-sm-block ">Deliveboo</h3>
     </div>
     <ul class="d-flex">
@@ -229,6 +227,10 @@ font-weight: 800;
   &:hover {
     color: $primary_color;
   }
+}
+
+.btn-danger i {
+  font-size: 0.9rem;
 }
 .fa-credit-card {
   font-size: 0.7rem;
