@@ -132,8 +132,6 @@ export default {
           <span class="d-block mb-2"><strong>Totale: </strong>{{ getTotalPrice() }} &euro;</span>
           <button class="btn btn-primary me-1"><router-link  :to="{name: 'checkout'}">Go to payment<i class="fa-solid fa-credit-card"></i></router-link></button>
           <button @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
-          {{ store.cart }}
-          {{ store.totalPrice.toFixed(2) }}
         </div>
       </div>
     </div>
