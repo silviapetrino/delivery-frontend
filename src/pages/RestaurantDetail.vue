@@ -13,7 +13,7 @@ export default {
       isLoading: true,
       message : {},
       showModal: false,
-      error: false
+      error: false,
     }
   },
 
@@ -98,86 +98,111 @@ export default {
 </script>
 
 <template>
-      <!-- modal  -->
-    <div v-if="this.error" class="container">
-      <div class="modal" tabindex="-1" role="dialog" :class="{ 'show': showModal }">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="fs-4 fw-bold modal-title">We are sorry!</h5>
-              <button type="button" class="close btn btn-danger" @click="showModal = false">
-                <span>&times;</span>
-              </button>
-            </div>
-            <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-              <p class="fs-4 fw-bold">You can only add products from a single restaurant per order!</p>
-              <div class="image w-50">
-                <img class="w-100" src="/img/sorry-or-404.png" alt="error">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-warning" @click="showModal = false">Close</button>
+
+  <!-- modal  -->
+  <div v-if="this.error" class="container">
+    <div class="modal" tabindex="-1" role="dialog" :class="{ 'show': showModal }">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="fs-4 fw-bold modal-title">We are sorry!</h5>
+            <button type="button" class="close btn btn-danger" @click="showModal = false">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+            <p class="fs-4 fw-bold">You can only add products from a single restaurant per order!</p>
+            <div class="image w-50">
+              <img class="w-100" src="/img/sorry-or-404.png" alt="error">
             </div>
           </div>
-        </div> 
-      </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" @click="showModal = false">Close</button>
+          </div>
+        </div>
+      </div> 
     </div>
-     <!-- /modal  -->
+  </div>
+  <!-- /modal  -->
+
   <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
     <Loader />
   </div>
   
-  <div v-else class="container">
+  <div v-else >
 
 
     <div v-if="restaurant.products.length === 0">
-        <h2>Sorry, no products available for this resaurant.</h2>
+      <h2>Sorry, no products available for this resaurant.</h2>
     </div>
     
     <div v-else>
-    
-        <h1 class="text-center mb-5">{{restaurant.name}}</h1>
-    
-        <div class="d-flex gap-5 flex-wrap justify-content-center justify-content-xxl-start">
-          <div v-for="product in restaurant.products" :key="product.id">
-            <div v-if="product.visibility == 1"  class="card cs-card" style="width: 18rem;">
-              <img class="card-img-top px-5 pt-5" :src="product.image" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">{{product.name}} </h5>
-                <span>{{ product.price }} &euro; </span>
-                <div class="info">
-                  <p>Ingredients: {{ product.ingredients }}</p> 
-                  <p class="card-text">{{product.description}}</p>
-                </div>
-                <div class="actions d-flex justify-content-center align-items-center my-2 rounded-3 gap-3">
-                  <button
-                    @click="decreaseQuantity(product)"
-                    class="btn btn-danger p-2 fw-bold rounded-0"
-                  >
-                    <i class="fa-solid fa-minus"></i>
+      <!-- restaurant details  -->
+      <div class="restaurant cover w-100">
+        <img class="w-100 h-100" :src="restaurant.image" :alt="restaurant.name" >
+        <div class="card text-center">
+          <h1 class="mb-2">{{restaurant.name}}</h1>
+          <ul class="d-flex justify-content-center align-content-center flex-wrap">
+            <li v-for="type in restaurant.types" :key="type.id" class="me-3 mb-2 badge text-bg-info">
+              {{ type.name }}
+            </li>
+          </ul>
+          <span><i class="fa-solid fa-location-dot"></i> {{ restaurant.address }}</span>
+        </div>
+      </div>
+      
+      <!-- ///restaurant details  -->
+      
+      <div class="container restaurant details">
+
+        <h2 class="text-center mb-5">Menu</h2>
+
+        <div class="d-flex flex-column">
+          <div v-for="product in restaurant.products" :key="product.id" class="w-100">
+            <div v-if="product.visibility == 1"  class="card cs-card flex-row p-3 mb-3" >
+              <div class="info-product d-flex flex-column w-75">
+                <h4 class="card-title">{{product.name}} </h4>
+                <p>Ingredients: {{ product.ingredients }}</p> 
+                <span>Price: {{ product.price }} &euro; </span>
+                <div class="actions d-flex flex-column my-3">
+                  <div class="mb-2">
+                    <button
+                      @click="decreaseQuantity(product)"
+                      class="btn btn-danger p-2 fw-bold rounded-1"
+                    >
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="mx-3">{{ product.tempQuantity }}</span>
+                    <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-1">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                  <button @click="addToCart(product, product.tempQuantity)" class="add-product btn btn-primary p-2 fw-bold rounded-1">
+                    Add to cart
                   </button>
-                  <span>{{ product.tempQuantity }}</span>
-                  <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-0">
-                    <i class="fa-solid fa-plus"></i>
-                  </button>
                 </div>
-              <button @click="addToCart(product, product.tempQuantity)" class="btn btn-primary p-2 fw-bold rounded-0 w-100">
-                  Add to cart
-                </button>
                 <div v-if="!this.error" class="message">
                   <span>{{ message[product.id] }}</span>
                 </div>
               </div>
+              <div class="w-25 d-flex flex-column align-items-center">
+                <img :src="product.image" alt="Card image cap">
+              </div>
             </div>
           </div>
-    
         </div>
+
       </div>
+      
     </div>
+
+  </div>
     
 </template>
 
 <style lang="scss" scoped>
+@use '../scss/main.scss' as *;
+
 #cart{
   border: 1px solid black;
 }
@@ -201,12 +226,56 @@ export default {
     }
   }
   .card.cs-card {
-    height: 500px;
+    box-shadow: 1px 3px 8px;
+    color: $secondary_color;
+    .add-product {
+      width: 100px;
+    }
+    img {
+      width: 75%;
+    }
     .info{
       height: 70px;
       overflow-y:auto;
     }
   }
 
-  //  modal 
+  //  /modal 
+
+  // restaurant cover 
+
+  .restaurant.cover {
+    height: 250px;
+    position: relative;
+    img {
+      object-fit: cover;
+    }
+    .card {
+      color: $secondary_color;
+      box-shadow: 2px 4px 10px;
+      width: 75%;
+      padding: 10px;
+      position: absolute;
+      margin: 0 auto;
+      top: 250px;
+      left: 50%;
+      transform: translate(-50%,  -50%);
+    }
+  }
+
+  @media all and (min-width: 992px ){
+    .restaurant.cover {
+    height: 350px;
+      .card {
+        width: 50%;
+        top: 350px;
+      }
+  }
+}
+
+ // restaurant details
+ .restaurant.details {
+   padding-top: 100px;
+  }
+
 </style>

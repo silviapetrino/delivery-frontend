@@ -33,6 +33,7 @@ import Header from './components/partials/Header.vue';
 body {
   background-color: $primary_color;
   color: $secondary_color;
+  font-family: 'Kreon Variable', sans-serif;
   .page{
     padding-top: 70px ;
   }
