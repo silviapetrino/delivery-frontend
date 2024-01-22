@@ -56,10 +56,10 @@ export default {
 <div class="container d-flex justify-content-between align-items-center h-100">
 
   <nav class="d-flex align-items-center h-100 gap-5">
-    <div class="logo d-flex align-items-center">
-      <img src="/img/DeliveBoo-img.png" alt="logo">
-      <h3 class=" d-none d-sm-block m-0 p-0">DeliveBoo</h3>
-    </div>
+      <a class="navbar-brand fs-4 h-100" href="#">
+              <img src="/img/logo.jpg" alt="Deliveboo_logo" class="logo h-100 p-2">
+              <span class= "brand">DeliveBoo</span>
+      </a>
     <ul class="d-flex p-0 m-0 gap-3">
       <li>
         <router-link :to="{name: 'home'}">Home</router-link>
@@ -155,6 +155,25 @@ color: $secondary_color;
 position: fixed;
 top: 0;
 z-index: 999;
+  a{
+          .brand{
+              color: $detail_color;
+              font-size: 1.6rem;
+              font-weight: 800;
+              text-shadow:
+                  2px 2px 1px $primary_color,
+                  -2px 2px 1px $primary_color,
+                  -2px -2px 0 $primary_color,
+                  2px -2px 0 $primary_color;
+          }
+          .logo{
+              border-radius: 50%;
+          }
+          &:hover{
+              scale: 1.1;
+          }
+  }
+  
 button i {
 font-size: 2rem;
 color: $secondary_color;

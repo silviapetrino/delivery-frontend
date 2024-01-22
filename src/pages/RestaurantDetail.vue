@@ -13,7 +13,7 @@ export default {
       isLoading: true,
       message : {},
       showModal: false,
-      error: false
+      error: false,
     }
   },
 
@@ -28,6 +28,13 @@ export default {
         this.restaurant.products.forEach((product) => {
           product.tempQuantity = 1;
         });
+        this.isLoading = false;
+      });
+    },
+    getApi() {
+    axios.get(store.apiUrl + 'restaurants')
+      .then(results => {
+        this.restaurants = results.data;
         this.isLoading = false;
       });
     },
@@ -93,11 +100,13 @@ export default {
   mounted() {
     this.restaurant_id = this.$route.params.id;
     this.getRestaurant(this.restaurant_id);
+    this.getApi();
   },
 };
 </script>
 
 <template>
+
       <!-- modal  -->
     <div v-if="this.error" class="container">
       <div class="modal" tabindex="-1" role="dialog" :class="{ 'show': showModal }">
@@ -123,11 +132,12 @@ export default {
       </div>
     </div>
      <!-- /modal  -->
+
   <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
     <Loader />
   </div>
   
-  <div v-else class="container">
+  <div v-else >
 
 
     <div v-if="restaurant.products.length === 0">
@@ -135,10 +145,20 @@ export default {
     </div>
     
     <div v-else>
-    
-        <h1 class="text-center mb-5">{{restaurant.name}}</h1>
-    
-        <div class="d-flex gap-5 flex-wrap justify-content-center justify-content-xxl-start">
+      <!-- restaurant details  -->
+        <div class="restaurant cover debug w-100">
+          <img class="w-100 h-100" :src="restaurant.image" :alt="restaurant.name" >
+          <div class="card debug">
+            <h1 class="text-center mb-5">{{restaurant.name}}</h1>
+            <ul>
+              <li>{{  }}</li>
+            </ul>
+          </div>
+        </div>
+        
+
+      <!-- ///restaurant details  -->
+        <div class="restaurant details container d-flex gap-5 flex-wrap justify-content-center justify-content-xxl-start">
           <div v-for="product in restaurant.products" :key="product.id">
             <div v-if="product.visibility == 1"  class="card cs-card" style="width: 18rem;">
               <img class="card-img-top px-5 pt-5" :src="product.image" alt="Card image cap">
@@ -208,5 +228,41 @@ export default {
     }
   }
 
-  //  modal 
+  //  /modal 
+
+  // restaurant cover 
+
+  .restaurant.cover {
+    height: 250px;
+    position: relative;
+    img {
+      object-fit: cover;
+    }
+    .card {
+      width: 75%;
+      padding: 10px;
+      position: absolute;
+      margin: 0 auto;
+      top: 250px;
+      left: 50%;
+      transform: translate(-50%,  -50%);
+    }
+  }
+
+  @media all and (min-width: 992px ){
+    .restaurant.cover {
+    height: 350px;
+      .card {
+        width: 50%;
+        top: 350px;
+      }
+  }
+}
+
+ // restaurant details
+
+ .restaurant.details {
+  padding-top: 800px;
+ }
+
 </style>
