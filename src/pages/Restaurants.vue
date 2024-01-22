@@ -2,7 +2,7 @@
 import { store } from '../data/store';
 import axios from 'axios';
 import Loader from '../components/partials/Loader.vue';
-import Jumbotron from '../components/partials/Jumbotron.vue'
+import Jumbotron from '../components/partials/Jumbotron.vue';
 
 export default {
   name: 'restaurants',
@@ -44,6 +44,7 @@ export default {
       axios.get(store.apiUrl + 'types')
       .then(results =>{
         store.types = results.data;
+        
        
       })
     }
@@ -62,18 +63,19 @@ export default {
 <!-- <h1>homepage</h1> -->
   <section class="container">
     
-    <ul class="d-flex gap-2 flex-wrap justify-content-center list-unstyled">
-      <li v-for="type in store.types" :key="type.id">
-        <button
-           v-if="type.restaurants.length > 0"
-          class="badge rounded-pill"
+    <div class="d-flex flex-wrap justify-content-center">
+      <div v-for="type in store.types" :key="type.id">
+        <button v-if="type.restaurants.length > 0"
+          class="d-flex flex-column align-items-center type"
           :class="{'active-type': selectedTypes.includes(type.name)}"
           @click="toggleType(type.name)"
         >
-          {{ type.name }}
+          <img class="image" :src="type.image" alt="{{ type.name }}">
+          <span>{{ type.name }}</span>  
         </button>
-      </li>
-    </ul>
+      </div>
+    </div>
+
     <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
        <Loader />
     </div>
@@ -105,14 +107,37 @@ export default {
 <style lang="scss" scoped>
 @use '../scss/main.scss' as *;
 
-li button {
-  background-color: $secondary_color !important;
-  color: $primary_color;
+
+.type {
+  width: 130px;
+  background: none;
+  border: 0;
+  
+  button {
+    border: 0;
+    background-color: none;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: .2s all ease;
+    &:hover {
+      border: 3px solid $secondary_color;
+      scale: 1.07;
+    }
+  }
 }
 
-.active-type{
-  
-  background-color: $detail_color !important;
+
+.active-type{ 
+  img {
+    border: 3px solid $secondary_color;
+  }
+  span {
+    font-weight: 600;
+  }
 }
 
 </style>
