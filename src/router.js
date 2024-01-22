@@ -4,6 +4,7 @@ import Restaurants from './pages/Restaurants.vue'
 import Error404 from './pages/Error404.vue';
 import RestaurantDetail from './pages/RestaurantDetail.vue';
 import AboutUs from './pages/AboutUs.vue';
+import Checkout from './pages/Checkout.vue';
 
 const router = createRouter({
 history: createWebHistory(),
@@ -31,6 +32,12 @@ routes:[
       name: 'restaurantDetail',
       component: RestaurantDetail,
    },
+
+  {
+   path: '/checkout',
+   name: 'checkout',
+   component: Checkout,
+  },
    // rotta 404 da mettere come ultima rotta
    {
       path: '/:pathMatch(.*)*',
