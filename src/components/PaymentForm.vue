@@ -8,6 +8,13 @@ export default {
     return {
       store,
       clientToken: null, // Token per inizializzare Braintree Drop-in
+      customerName:'',
+      customerAddress:'',
+      customerEmail:'',
+      customerPhone:'',
+      customerNotes:'',
+      orderTotal: 0,
+
     };
   },
   methods: {
@@ -18,6 +25,10 @@ export default {
       } catch (error) {
         console.error("Errore nel recuperare il client token:", error);
       }
+    },
+
+    handleSubmit(){
+      this.submitPayment();
     },
 
     submitPayment() {
@@ -36,8 +47,29 @@ export default {
         // Gestisci errori nella richiesta
       });
     });
-
+    this.orderTotal = store.totalPrice;
+    this.sendOrderData(); // DOPO aver mandato il tutto a Braintree faccio partire la chiamata per inviare i dati che ci sono necessari per conservare l'ordine nel backend.
+    
     },
+
+    sendOrderData(){
+      axios.post(store.apiUrl +'orders', {
+        customer_name: this.customerName,
+        customer_address: this.customerAddress,
+        customer_email: this.customerEmail,
+        customer_phone: this.customerPhone,
+        total_price: this.orderTotal,
+        customer_notes: this.customerNotes,
+        products: store.cart.map(product => ({
+          id: product.id,
+          quantity: product.quantity
+    }))
+      }).then(response =>{
+        console.log('ORDINE CREATO: ' + response);
+      }).catch(err =>{
+        console.log('QUALCOSA è ANDATO STORTO IN CREAZIONE ORDINE');
+      });
+    }
   },
   mounted() {
      this.getClientToken().then(() => {
@@ -58,8 +90,16 @@ export default {
 
 <template>
   <div>
-    <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
-    <button @click="submitPayment">Invia Pagamento</button>
+    <form @submit.prevent="handleSubmit">
+      <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
+        <input type="text" v-model="customerName" placeholder="customerName">
+        <input type="text" v-model="customerAddress" placeholder="customerAddress">
+        <input type="email" v-model="customerEmail" placeholder="customerEmail">
+        <input type="number" v-model="customerPhone" placeholder="customerPhone">
+        <input type="text" v-model="customerNotes" placeholder="customerNotes">
+        <button type="submit">Invia Pagamento</button>
+    
+    </form>
   </div>
 </template>
 
