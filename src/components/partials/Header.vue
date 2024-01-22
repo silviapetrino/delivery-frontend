@@ -58,7 +58,7 @@ export default {
   <nav class="d-flex align-items-center h-100 gap-5">
       <a class="navbar-brand fs-4 h-100" href="#">
               <img src="/img/logo.jpg" alt="Deliveboo_logo" class="logo h-100 p-2">
-              <span class= "brand">DeliveBoo</span>
+              <span class= "brand d-none d-sm-inline-block ">DeliveBoo</span>
       </a>
     <ul class="d-flex p-0 m-0 gap-3">
       <li>
@@ -152,6 +152,7 @@ width: 100%;
 height: 70px;
 background-color: $tertiary_color;
 color: $secondary_color;
+box-shadow: 2px 4px 10px;
 position: fixed;
 top: 0;
 z-index: 999;
