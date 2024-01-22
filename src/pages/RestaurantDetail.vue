@@ -35,6 +35,7 @@ export default {
     addToCart(product, quantity) {
       if (store.cart.length >= 0) {
         this.message[product.id] = `You added ${quantity} ${product.name} to the cart!`;
+        product.tempQuantity = 1;
       }
 
       //"ciclo" tutti i prodotti già nel carrello guardando se ne trovo uno che abbia l'id uguale al prodotto che sto cercando di aggiungere (se non ne trovo qui mi risulta UNDEFINED)
