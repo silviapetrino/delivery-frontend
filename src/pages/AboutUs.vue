@@ -3,7 +3,7 @@ import { store } from '../data/store';
 import axios from 'axios';
 
 export default {
-  name: 'Home',
+  name: 'About Us',
   components:{
   },
   data() {
@@ -23,7 +23,7 @@ export default {
 
 <template>
   <div class="container">
-    <h1>homepage</h1>
+    <h1>About Us</h1>
   </div>
 
 </template>

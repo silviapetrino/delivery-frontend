@@ -17,7 +17,7 @@ export default {
 @use '../../scss/main.scss' as *;
 
 .jumbotron {
-  
+  padding: 80px 0 0 0;
   h2 {
     font-weight: 700;
   }
