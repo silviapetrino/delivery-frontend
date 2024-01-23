@@ -2,7 +2,7 @@
 import { store } from '../../data/store';
 import axios from 'axios';
 export default {
-  name: 'header',
+  name: 'HeaderComponent',
   data(){
     return{
       store,
