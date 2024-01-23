@@ -1,6 +1,8 @@
 <script>
 import { store } from '../data/store';
 import axios from 'axios';
+import { DateTime } from 'luxon';
+
 
 export default {
   name: "PaymentForm",
@@ -12,8 +14,8 @@ export default {
       customerAddress:'',
       customerEmail:'',
       customerPhone:'',
-      customerNotes:'',
       orderTotal: 0,
+      currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
 
     };
   },
@@ -54,12 +56,13 @@ export default {
 
     sendOrderData(){
       axios.post(store.apiUrl +'orders', {
+        date: this.currentDate,
+        total_price: this.orderTotal,
         customer_name: this.customerName,
         customer_address: this.customerAddress,
         customer_email: this.customerEmail,
         customer_phone: this.customerPhone,
-        total_price: this.orderTotal,
-        customer_notes: this.customerNotes,
+
         products: store.cart.map(product => ({
           id: product.id,
           quantity: product.quantity
@@ -90,13 +93,14 @@ export default {
 
 <template>
   <div>
+    {{ console.log(currentDate) }}
     <form @submit.prevent="handleSubmit">
       <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
         <input type="text" v-model="customerName" placeholder="customerName">
         <input type="text" v-model="customerAddress" placeholder="customerAddress">
         <input type="email" v-model="customerEmail" placeholder="customerEmail">
         <input type="number" v-model="customerPhone" placeholder="customerPhone">
-        <input type="text" v-model="customerNotes" placeholder="customerNotes">
+
         <button type="submit">Invia Pagamento</button>
     
     </form>

@@ -1,7 +1,7 @@
 <script>
 import { store } from '../../data/store';
 export default {
-  name: 'header',
+  name: 'HeaderComponent',
   data(){
     return{
       store,
