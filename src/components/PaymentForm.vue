@@ -1,6 +1,8 @@
 <script>
 import { store } from '../data/store';
 import axios from 'axios';
+import { DateTime } from 'luxon';
+
 
 export default {
   name: "PaymentForm",
@@ -8,6 +10,13 @@ export default {
     return {
       store,
       clientToken: null, // Token per inizializzare Braintree Drop-in
+      customerName:'',
+      customerAddress:'',
+      customerEmail:'',
+      customerPhone:'',
+      orderTotal: 0,
+      currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
+
     };
   },
   methods: {
@@ -18,6 +27,10 @@ export default {
       } catch (error) {
         console.error("Errore nel recuperare il client token:", error);
       }
+    },
+
+    handleSubmit(){
+      this.submitPayment();
     },
 
     submitPayment() {
@@ -36,8 +49,30 @@ export default {
         // Gestisci errori nella richiesta
       });
     });
-
+    this.orderTotal = store.totalPrice;
+    this.sendOrderData(); // DOPO aver mandato il tutto a Braintree faccio partire la chiamata per inviare i dati che ci sono necessari per conservare l'ordine nel backend.
+    
     },
+
+    sendOrderData(){
+      axios.post(store.apiUrl +'orders', {
+        date: this.currentDate,
+        total_price: this.orderTotal,
+        customer_name: this.customerName,
+        customer_address: this.customerAddress,
+        customer_email: this.customerEmail,
+        customer_phone: this.customerPhone,
+
+        products: store.cart.map(product => ({
+          id: product.id,
+          quantity: product.quantity
+    }))
+      }).then(response =>{
+        console.log('ORDINE CREATO: ' + response);
+      }).catch(err =>{
+        console.log('QUALCOSA è ANDATO STORTO IN CREAZIONE ORDINE');
+      });
+    }
   },
   mounted() {
      this.getClientToken().then(() => {
@@ -58,8 +93,17 @@ export default {
 
 <template>
   <div>
-    <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
-    <button @click="submitPayment">Invia Pagamento</button>
+    {{ console.log(currentDate) }}
+    <form @submit.prevent="handleSubmit">
+      <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
+        <input type="text" v-model="customerName" placeholder="customerName">
+        <input type="text" v-model="customerAddress" placeholder="customerAddress">
+        <input type="email" v-model="customerEmail" placeholder="customerEmail">
+        <input type="number" v-model="customerPhone" placeholder="customerPhone">
+
+        <button type="submit">Invia Pagamento</button>
+    
+    </form>
   </div>
 </template>
 
