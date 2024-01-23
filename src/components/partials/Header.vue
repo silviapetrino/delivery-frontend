@@ -1,5 +1,6 @@
 <script>
 import { store } from '../../data/store';
+import axios from 'axios';
 export default {
   name: 'header',
   data(){
@@ -48,10 +49,20 @@ export default {
 
     getRestaurantName(restaurantId) {
       const restaurant = store.restaurants.find(r => r.id === restaurantId);
+      this.saveCart();
       return restaurant ? restaurant.name : '';
     },
   },
+
+  created() {
+   axios.get(store.apiUrl + 'restaurants').then(results => {
+          store.restaurants = results.data;
+          this.isLoading = false;
+        });
+  }
+  
 }
+
 </script>
 
 <template>
