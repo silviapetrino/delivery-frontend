@@ -1,7 +1,6 @@
 import { createRouter , createWebHistory } from "vue-router";
 import { store } from './data/store';
 import Home from './pages/Home.vue';
-import Restaurants from './pages/Restaurants.vue'
 import Error404 from './pages/Error404.vue';
 import RestaurantDetail from './pages/RestaurantDetail.vue';
 import AboutUs from './pages/AboutUs.vue';
