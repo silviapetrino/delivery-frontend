@@ -53,7 +53,7 @@ export default {
       return restaurant ? restaurant.name : '';
     },
   },
-
+  // al created recupero la lista ristoranti per evitare problema asincronicità del codice 
   created() {
    axios.get(store.apiUrl + 'restaurants').then(results => {
           store.restaurants = results.data;
@@ -99,6 +99,7 @@ export default {
         <i class="fa-solid fa-cart-shopping"></i>
       </button>
     </div>
+
     <!-- offcanvas  -->
     <div class="offcanvas offcanvas-end offcanvas-custom" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
@@ -107,13 +108,9 @@ export default {
       </div>
       <div class="offcanvas-body">
         <div class="container" id="cart">
-        
-          <!-- {{  store.cart }}
-           -->
+      
           <h5>Order Summary</h5>
-          <div v-for="(product , index) in store.cart" :key="index">
-            <span>{{ getRestaurantName(product.restaurant_id) }}</span>
-          </div>
+          
           <table class="table table-custom">
             <thead>
               <tr>
@@ -139,13 +136,22 @@ export default {
             </tbody>
           </table>
 
-          <span class="d-block mb-2"><strong>Totale: </strong>{{ getTotalPrice() }} &euro;</span>
-          <button class="btn btn-primary me-1"><router-link  :to="{name: 'checkout'}">Go to payment<i class="fa-solid fa-credit-card"></i></router-link></button>
+          <span class="d-block mb-2"><strong>Total: </strong>{{ getTotalPrice() }} &euro;</span>
+        
+          
+
+          <div class="my-4" v-for="(product , index) in store.cart" :key="index">
+            <h3>Your cart is from:</h3>
+            <h5 class="text-dark my-3">{{ getRestaurantName(product.restaurant_id) }}</h5>
+            <span class="fw-bold text-danger">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout</span>
+          </div>
           <button @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
+          <button class="mx-1 btn btn-primary me-1"><router-link  :to="{name: 'checkout'}">Go to payment<i class="fa-solid fa-credit-card"></i></router-link></button>
         </div>
       </div>
     </div>
    <!-- offcanvas  -->
+
   </div>
 </div>
 
