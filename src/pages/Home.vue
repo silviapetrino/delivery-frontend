@@ -59,7 +59,7 @@ export default {
   
     <Jumbotron />
 
-  <section class="container">
+  <section id="search-restaurant" class="container">
     
     <div class="d-flex flex-wrap justify-content-center">
       <div v-for="type in store.types" :key="type.id">
@@ -91,7 +91,7 @@ export default {
             </div>
           
             <div v-else>
-                <h1>There are no restaurants for these tipologies: {{ selectedTypes.join(', ') }}</h1>
+                <h3>There are no restaurants for these tipologies: {{ selectedTypes.join(', ') }}</h3>
             </div>
 
     </div>
@@ -107,24 +107,34 @@ export default {
 
 
 .type {
-  width: 130px;
+  width: 90px;
   background: none;
   border: 0;
-  
   button {
     border: 0;
     background-color: none;
   }
-  img {
+  .image{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
     border-radius: 50%;
-    transition: .2s all ease;
-    &:hover {
-      border: 3px solid $secondary_color;
-      scale: 1.07;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .2s all ease;
+      &:hover {
+        border: 3px solid $primary_color;
+        scale: 1.07;
+      }
     }
+  }
+
+}
+
+@media all and (min-width: 576px){
+  .type {
+    width: 110px;
   }
 }
 
