@@ -102,55 +102,63 @@ export default {
 
     <!-- offcanvas  -->
     <div class="offcanvas offcanvas-end offcanvas-custom" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h3 class="offcanvas-title" id="offcanvasRightLabel">Cart Shopping</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="container" id="cart">
       
+        <div class="container" id="cart">
+          <div class="offcanvas-header">
+            <h3 class="offcanvas-title" id="offcanvasRightLabel">Cart Shopping</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
           <h5>Order Summary</h5>
           <h5 style="width: 250px;" class="text-danger" v-if="store.cart.length === 0">You don't have any product in your cart, feel free to add as many product as you want from your favourite restaurant!</h5> 
-          <table v-if="store.cart.length > 0" class="table table-custom">
+          <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless ">
             <thead>
-              <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Remove</th>
+              <tr class="text-center">
+                <th scope="col ">Product</th>
+                <th scope="col ">Quantity</th>
+                <th scope="col ">Price</th>
+                <th scope="col ">Remove</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(product , index) in store.cart" :key="index">
+              <tr v-for="(product , index) in store.cart" :key="index" class="line">
                 <th scope="row">{{ product.name }}</th>
-                <td>
-                  <button @click="() => decreaseQuantity(index)" class="btn-custom "><i class="fa-solid fa-minus"></i></button>
-                  <span class="mx-1">{{ product.quantity }}</span>
-                  <button @click="() => increaseQuantity(index)" class="btn-custom "><i class="fa-solid fa-plus"></i></button>
-                </td>
-                <td>{{ (product.price * product.quantity).toFixed(2) }} &euro;</td>
-                <td>
-                  <button @click="removeFromCart(index)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                <td class="text-center d-flex justify-content-center align-items-center">
+                  <button @click="() => decreaseQuantity(index)" class=" action btn btn-danger"><i class="fa-solid fa-minus"></i></button>
+                  <span class="quantity mx-1">{{ product.quantity }}</span>
+                  <button @click="() => increaseQuantity(index)" class=" action btn btn-success "><i class="fa-solid fa-plus"></i></button>
+                </td >
+                <td class="text-center price">{{ (product.price * product.quantity).toFixed(2) }} &euro;</td>
+                <td class="d-flex justify-content-center">
+                  <button @click="removeFromCart(index)" class="btn btn-danger action"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <span v-if="store.cart.length > 0" class="d-block mb-2"><strong>Total: </strong>{{ getTotalPrice() }} &euro;</span>
+          <span v-if="store.cart.length > 0" class="d-block fs-5"><strong>Total: </strong>{{ getTotalPrice() }} &euro;</span>
         
           
 
-          <div class="my-4" v-for="(product , index) in store.cart" :key="index">
-            <h3>Your cart is from:</h3>
-            <h5 class="text-dark my-3">{{ getRestaurantName(product.restaurant_id) }}</h5>
-            <span class="fw-bold text-danger">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout</span>
+          <div v-if="store.cart.length > 0">
+            <div class="my-2">
+              <h3>Your cart is from:</h3>
+              <h4>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h4>
+              <p class="fw-bold text-danger">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout
+              </p>
+              <div class="d-flex gap-2">
+                <a class="text-white text-decoration-none btn btn-primary" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
+                Go back to restaurant
+                </a>
+                <button v-if="store.cart.length > 0" @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
+                <button v-if="store.cart.length > 0" class=" btn btn-success "><router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}" class="text-decoration-none">Go to payment<i class="fa-solid fa-credit-card ms-2"></i></router-link></button>
+              </div>
+            </div>
           </div>
-          <button v-if="store.cart.length > 0" @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
-          <button v-if="store.cart.length > 0" class="mx-1 btn btn-primary me-1"><router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}">Go to payment<i class="fa-solid fa-credit-card"></i></router-link></button>
         </div>
       </div>
     </div>
-   <!-- offcanvas  -->
+  <!-- offcanvas  -->
 
   </div>
 </div>
@@ -165,109 +173,114 @@ export default {
 
 
 header {
-width: 100%;
-height: 70px;
-background-color: $tertiary_color;
-color: $secondary_color;
-box-shadow: 2px 4px 10px;
-position: fixed;
-top: 0;
-z-index: 999;
-  a{
-          .brand{
-              color: $detail_color;
-              font-size: 1.6rem;
-              font-weight: 800;
-              text-shadow:
-                  2px 2px 1px $primary_color,
-                  -2px 2px 1px $primary_color,
-                  -2px -2px 0 $primary_color,
-                  2px -2px 0 $primary_color;
-          }
-          .logo{
-              border-radius: 50%;
-          }
-          &:hover{
-              scale: 1.1;
-          }
-  }
-  
-button i {
-font-size: 2rem;
-color: $secondary_color;
-&:hover {
-  color: $primary_color;
-}
-}
-router-link, a {
-color: $primary_color;
-&:hover {
-  color: $secondary_color;
-}
-}
-
-.logo {
-h3 {
-  font-weight: 700;
-}
-img {
-  width: 60px;
-  border-radius: 35%;
-  margin: 0 5px 0 0;
-}
-}
-}
-
-
-.cart-counter{
-width: 1.4rem;
-height: 1.4rem;
-border-radius: 50%;
-background-color: red;
-right: 0;
-top: -5px;
-span{
-color: white;
-font-weight: 800;
-}
-
-}
-
-.offcanvas-custom {
-  width: auto !important;
-  background-color: $primary_color;
-  color: $secondary_color;
-
-  h3 {
-    font-weight: bold;
-  }
-  
-
-  th, td {
-    background-color: $primary_color !important;
-    color: $secondary_color;
-  }
-}
-
-.btn-custom {
-  i {
-    font-size: 0.9rem;
-  }
-  padding: 3px 6px;
+  width: 100%;
+  height: 70px;
   background-color: $tertiary_color;
   color: $secondary_color;
-  border: none;
-  border-radius: 15%;
-  &:hover {
-    color: $primary_color;
+  box-shadow: 2px 4px 10px;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  nav{
+    router-link, a {
+      color: $primary_color;
+      &:hover {
+        color: $secondary_color;
+      }
+    }
+    a{
+      .brand{
+        color: $detail_color;
+        font-size: 1.6rem;
+        font-weight: 800;
+        text-shadow:
+          2px 2px 1px $primary_color,
+          -2px 2px 1px $primary_color,
+          -2px -2px 0 $primary_color,
+          2px -2px 0 $primary_color;
+      }
+      .logo{
+        border-radius: 50%;
+        h3 {
+          font-weight: 700;
+        }
+        img {
+          width: 60px;
+          border-radius: 35%;
+          margin: 0 5px 0 0;
+        }
+      }
+    &:hover{
+      scale: 1.1;
+      }
+    }
+  }
+  .cart-container{
+    button i {
+      font-size: 2rem;
+      color: $secondary_color;
+      &:hover {
+        color: $primary_color;
+      }
+    }
+    .cart-counter{
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 50%;
+      background-color: red;
+      right: 0;
+      top: -5px;
+      span{
+        color: white;
+      font-weight: 800;
+      }
+    }
+  }
+  .offcanvas-custom {
+    width: auto !important;
+    background-color: $primary_color;
+    color: $secondary_color;
+    h3 {
+      font-weight: bold;
+    }
+    th, td {
+      background-color: $primary_color !important;
+      color: $secondary_color;
+    }
+    .quantity{
+      display:inline-block;
+      width:20px;
+      font-size: 15px;
+    }
+    .price{
+      width: 80px;
+    }
+    .line{
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .action{
+      width:5vw;
+      height:5vw;
+      font-size: 10px;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+    
+    }
+    @media all and (min-width: 576px){
+      .action{
+      width:30px;
+      height:30px;
+      padding: 5px;
+      font-size: 15px;
+
+    
+    }
+
+    }
   }
 }
 
-.btn-danger i {
-  font-size: 0.9rem;
-}
-.fa-credit-card {
-  font-size: 0.7rem;
-  color: $primary_color;
-}
 </style>
