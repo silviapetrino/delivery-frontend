@@ -81,9 +81,6 @@ export default {
         <router-link :to="{name: 'home'}">Home</router-link>
       </li>
       <li>
-        <router-link :to="{name: 'restaurants'}">Restaurants</router-link>
-      </li>
-      <li>
         <router-link :to="{name: 'aboutUs'}">About Us</router-link>
       </li>
     </ul>
@@ -151,7 +148,8 @@ export default {
                 Go back to restaurant
                 </a>
                 <button v-if="store.cart.length > 0" @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
-                <button v-if="store.cart.length > 0" class=" btn btn-success "><router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}" class="text-decoration-none">Go to payment<i class="fa-solid fa-credit-card ms-2"></i></router-link></button>
+                <button type="button" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0">
+                  <router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}" class="text-decoration-none">Go to payment<i class="fa-solid fa-credit-card ms-2"></i></router-link></button>
               </div>
             </div>
           </div>

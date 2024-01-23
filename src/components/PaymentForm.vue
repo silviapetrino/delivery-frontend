@@ -3,107 +3,105 @@ import { store } from '../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
 
-
 export default {
-  name: "PaymentForm",
+  name: 'PaymentForm',
   data() {
     return {
       store,
-      clientToken: null, // Token per inizializzare Braintree Drop-in
-      customerName:'',
-      customerAddress:'',
-      customerEmail:'',
-      customerPhone:'',
+      clientToken: null,
+      customerName: '',
+      customerAddress: '',
+      customerEmail: '',
+      customerPhone: '',
       orderTotal: 0,
       currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
-
+      dropinInstance: null,
     };
   },
   methods: {
     async getClientToken() {
       try {
-        const response = await axios.get(store.apiUrl+'payment/token');
+        const response = await axios.get(`${store.apiUrl}payment/token`);
         this.clientToken = response.data.token;
       } catch (error) {
-        console.error("Errore nel recuperare il client token:", error);
+        console.error('Error fetching client token:', error);
       }
     },
 
-    handleSubmit(){
+    handleSubmit() {
       this.submitPayment();
     },
 
     submitPayment() {
-    this.dropinInstance.requestPaymentMethod((error, payload) => {
-      if (error) {
-        console.error("Errore nella richiesta del payment method:", error);
-        return;
-      }
-      axios.post(store.apiUrl+'payment/checkout', {
-        payment_method_nonce: payload.nonce,
-        amount : store.totalPrice
-      }).then(response => {
-        console.log(response);
-      
-      }).catch(error => {
-        // Gestisci errori nella richiesta
+      this.dropinInstance.requestPaymentMethod((error, payload) => {
+        if (error) {
+          console.error('Error requesting payment method:', error);
+          return;
+        }
+
+        axios.post(`${store.apiUrl}payment/checkout`, {
+          payment_method_nonce: payload.nonce,
+          amount: store.totalPrice,
+        }).then(response => {
+          console.log(response);
+        }).catch(error => {
+          console.error('Error in payment checkout request:', error);
+        });
       });
-    });
-    this.orderTotal = store.totalPrice;
-    this.sendOrderData(); // DOPO aver mandato il tutto a Braintree faccio partire la chiamata per inviare i dati che ci sono necessari per conservare l'ordine nel backend.
-    
+
+      this.orderTotal = store.totalPrice;
+      this.sendOrderData();
     },
 
-    sendOrderData(){
-      axios.post(store.apiUrl +'orders', {
+    sendOrderData() {
+      axios.post(`${store.apiUrl}orders`, {
         date: this.currentDate,
         total_price: this.orderTotal,
         customer_name: this.customerName,
         customer_address: this.customerAddress,
         customer_email: this.customerEmail,
         customer_phone: this.customerPhone,
-
         products: store.cart.map(product => ({
           id: product.id,
-          quantity: product.quantity
-    }))
-      }).then(response =>{
-        console.log('ORDINE CREATO: ' + response);
-      }).catch(err =>{
-        console.log('QUALCOSA è ANDATO STORTO IN CREAZIONE ORDINE');
+          quantity: product.quantity,
+        })),
+      }).then(response => {
+        console.log('ORDER CREATED:', response);
+      }).catch(error => {
+        console.error('Something went wrong in order creation:', error);
       });
-    }
+    },
   },
   mounted() {
-     this.getClientToken().then(() => {
-    if (this.clientToken) {
-      braintree.dropin.create({
-        authorization: this.clientToken,
-        container: '#dropin-container'
-      }, (error, dropinInstance) => {
-        if (error) console.error(error);
-        else this.dropinInstance = dropinInstance;
-      });
-    }
-  });
-  }
+    this.getClientToken().then(() => {
+      if (this.clientToken) {
+        braintree.dropin.create({
+          authorization: this.clientToken,
+          container: '#dropin-container',
+        }, (error, dropinInstance) => {
+          if (error) {
+            console.error('Error creating Drop-in instance:', error);
+          } else {
+            this.dropinInstance = dropinInstance;
+          }
+        });
+      }
+    });
+  },
 };
 </script>
-
 
 <template>
   <div>
     {{ console.log(currentDate) }}
     <form @submit.prevent="handleSubmit">
-      <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
-        <input type="text" v-model="customerName" placeholder="customerName">
-        <input type="text" v-model="customerAddress" placeholder="customerAddress">
-        <input type="email" v-model="customerEmail" placeholder="customerEmail">
-        <input type="number" v-model="customerPhone" placeholder="customerPhone">
+      <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
+      <input type="text" v-model="customerName" placeholder="Customer Name">
+      <input type="text" v-model="customerAddress" placeholder="Customer Address">
+      <input type="email" v-model="customerEmail" placeholder="Customer Email">
+      <input type="number" v-model="customerPhone" placeholder="Customer Phone">
 
-        <button type="submit">Invia Pagamento</button>
-    
+      <button type="submit">Submit Payment</button>
     </form>
   </div>
 </template>
-

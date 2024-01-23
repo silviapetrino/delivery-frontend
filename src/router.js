@@ -18,11 +18,6 @@ routes:[
       component: Home
    },
    {
-      path: '/Restaurants',
-      name: 'restaurants',
-      component: Restaurants
-   },
-   {
       path: '/AboutUs',
       name: 'aboutUs',
       component: AboutUs
@@ -34,19 +29,19 @@ routes:[
       component: RestaurantDetail,
    },
 
-  {
+   {
    path: '/checkout',
    name: 'checkout',
    component: Checkout,
    beforeEnter: (to, from, next) => {
       if (store.cart.length === 0) {
-        next({ name: 'home' });
+         next({ name: 'home' });
       } else {
-        next();
+         next();
       }
-    },
+   },
    
-  },
+   },
    // rotta 404 da mettere come ultima rotta
    {
       path: '/:pathMatch(.*)*',
