@@ -1,4 +1,5 @@
 import { createRouter , createWebHistory } from "vue-router";
+import { store } from './data/store';
 import Home from './pages/Home.vue';
 import Restaurants from './pages/Restaurants.vue'
 import Error404 from './pages/Error404.vue';
@@ -37,6 +38,14 @@ routes:[
    path: '/checkout',
    name: 'checkout',
    component: Checkout,
+   beforeEnter: (to, from, next) => {
+      if (store.cart.length === 0) {
+        next({ name: 'home' });
+      } else {
+        next();
+      }
+    },
+   
   },
    // rotta 404 da mettere come ultima rotta
    {

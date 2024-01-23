@@ -110,8 +110,8 @@ export default {
         <div class="container" id="cart">
       
           <h5>Order Summary</h5>
-          
-          <table class="table table-custom">
+          <h5 style="width: 250px;" class="text-danger" v-if="store.cart.length === 0">You don't have any product in your cart, feel free to add as many product as you want from your favourite restaurant!</h5> 
+          <table v-if="store.cart.length > 0" class="table table-custom">
             <thead>
               <tr>
                 <th scope="col">Product</th>
@@ -136,7 +136,7 @@ export default {
             </tbody>
           </table>
 
-          <span class="d-block mb-2"><strong>Total: </strong>{{ getTotalPrice() }} &euro;</span>
+          <span v-if="store.cart.length > 0" class="d-block mb-2"><strong>Total: </strong>{{ getTotalPrice() }} &euro;</span>
         
           
 
@@ -145,8 +145,8 @@ export default {
             <h5 class="text-dark my-3">{{ getRestaurantName(product.restaurant_id) }}</h5>
             <span class="fw-bold text-danger">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout</span>
           </div>
-          <button @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
-          <button class="mx-1 btn btn-primary me-1"><router-link  :to="{name: 'checkout'}">Go to payment<i class="fa-solid fa-credit-card"></i></router-link></button>
+          <button v-if="store.cart.length > 0" @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
+          <button v-if="store.cart.length > 0" class="mx-1 btn btn-primary me-1"><router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}">Go to payment<i class="fa-solid fa-credit-card"></i></router-link></button>
         </div>
       </div>
     </div>
