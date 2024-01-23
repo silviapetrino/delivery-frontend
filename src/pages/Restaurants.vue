@@ -77,7 +77,7 @@ export default {
     </div>
 
     <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
-       <Loader />
+      <Loader />
     </div>
     
     <div v-else>
