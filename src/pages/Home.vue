@@ -14,7 +14,6 @@ export default {
     return {
       store,
       selectedTypes: [],
-      restaurants: [],
       isLoading: true,
     }
   },
@@ -23,7 +22,7 @@ export default {
       const typesQueryParam = this.selectedTypes.map(type => `types[]=${type}`).join('&');
       axios.get(store.apiUrl + 'restaurants?' + typesQueryParam)
         .then(results => {
-          this.restaurants = results.data;
+          store.restaurants = results.data;
           this.isLoading = false;
         });
     },
@@ -60,7 +59,6 @@ export default {
   
     <Jumbotron />
 
-<!-- <h1>homepage</h1> -->
   <section class="container">
     
     <div class="d-flex flex-wrap justify-content-center">
@@ -81,10 +79,10 @@ export default {
     </div>
     
     <div v-else>
-          <div v-if="restaurants.length">
-              <h2 v-if="selectedTypes.length > 0"> Restaurants found : {{ restaurants.length }}</h2>
+          <div v-if="store.restaurants.length">
+              <h2 v-if="selectedTypes.length > 0"> Restaurants found : {{ store.restaurants.length }}</h2>
           
-                  <div v-for="restaurant in restaurants" :key="restaurant.id">
+                  <div v-for="restaurant in store.restaurants" :key="restaurant.id">
                     <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">{{ restaurant.name }}</router-link>
 
                   </div>

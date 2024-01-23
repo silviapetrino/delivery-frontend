@@ -46,6 +46,10 @@ export default {
       return totalPrice.toFixed(2);
     },
 
+    getRestaurantName(restaurantId) {
+      const restaurant = store.restaurants.find(r => r.id === restaurantId);
+      return restaurant ? restaurant.name : '';
+    },
   },
 }
 </script>
@@ -84,7 +88,7 @@ export default {
         <i class="fa-solid fa-cart-shopping"></i>
       </button>
     </div>
-
+    <!-- offcanvas  -->
     <div class="offcanvas offcanvas-end offcanvas-custom" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
         <h3 class="offcanvas-title" id="offcanvasRightLabel">Cart Shopping</h3>
@@ -92,18 +96,13 @@ export default {
       </div>
       <div class="offcanvas-body">
         <div class="container" id="cart">
-          <!-- <ul>
-            <li v-for="(product , index) in store.cart" :key="index">
-              <span>{{ product.quantity }}</span>
-              <span>{{ product.name }}</span>
-              <button @click="removeFromCart(index)" class="btn btn-danger">Removefrom cart</button>
-              <button @click="() => decreaseQuantity(index)" class="btn btn-warning">-</button>
-              <button @click="() => increaseQuantity(index)" class="btn btn-success">+</button>
-            </li>
-          </ul> -->
-          
+        
+          <!-- {{  store.cart }}
+           -->
           <h5>Order Summary</h5>
-          
+          <div v-for="(product , index) in store.cart" :key="index">
+            <span>{{ getRestaurantName(product.restaurant_id) }}</span>
+          </div>
           <table class="table table-custom">
             <thead>
               <tr>
@@ -135,7 +134,7 @@ export default {
         </div>
       </div>
     </div>
-  
+   <!-- offcanvas  -->
   </div>
 </div>
 
