@@ -12,6 +12,9 @@ export default {
     removeFromCart(index){
       store.cart.splice(index , 1);
       this.saveCart();
+      if (store.cart.length === 0) {
+        this.$router.push({ name: 'home' });
+      }
     },
 
     saveCart(){
@@ -147,7 +150,9 @@ export default {
                 <a class="text-white text-decoration-none btn btn-primary" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
                 Go back to restaurant
                 </a>
-                <button v-if="store.cart.length > 0" @click="clearCart(product)" class="btn btn-danger">Clear cart</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
+                  <router-link v-if="store.cart.length > 0" :to="{name: 'home'}" class="text-decoration-none">Clear cart</router-link>
+                </button>
                 <button type="button" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0">
                   <router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}" class="text-decoration-none">Go to payment<i class="fa-solid fa-credit-card ms-2"></i></router-link></button>
               </div>
