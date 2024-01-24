@@ -97,15 +97,24 @@ export default {
     </div>
     
     <div v-else>
-          <div v-if="store.restaurants.length">
+          <div class="container debug d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center gap-2 text-center w-100" v-if="store.restaurants.length">
               <h2 v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
           
                   <div v-for="restaurant in store.restaurants" :key="restaurant.id">
-                    <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">{{ restaurant.name }}</router-link>
+
+                    <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">
+
+                      <div style="width: 250px;" class=" card p-1">
+                        <h3>{{ restaurant.name }}</h3>
+                        <img class="w-100 h-100" :src="restaurant.image">
+                      </div>
+
+                      
+                    </router-link>
 
                   </div>
               
-      
+
             </div>
           
             <div v-else>
