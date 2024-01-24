@@ -11,7 +11,7 @@ export default {
   mounted() {
     setInterval(() => {
       this.nextSlide();
-    }, 5000);
+    }, 7000);
   },
 };
 </script>
@@ -25,7 +25,7 @@ export default {
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="/img/slide-1.jpg" class="d-block w-100 h-100 object-fit-cover" alt="...">
-              <a class="btn-cs btn-danger" href="#">
+              <a class="btn-cs btn-danger" href="#search-restaurant">
                 <span>Find your favourite restaurant</span>
                 <i class="ms-1 fa-solid fa-utensils"></i>
               </a>
