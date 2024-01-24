@@ -2,13 +2,13 @@
 import { store } from '../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import payment_validation from '../data/payment_validation';
+
 
 export default {
   name: 'PaymentForm',
   data() {
     return {
-      payment_validation,
+  
       store,
       clientToken: null,
       customerName: '',
