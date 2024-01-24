@@ -5,6 +5,7 @@ import Error404 from './pages/Error404.vue';
 import RestaurantDetail from './pages/RestaurantDetail.vue';
 import AboutUs from './pages/AboutUs.vue';
 import Checkout from './pages/Checkout.vue';
+import Results from './pages/Results.vue';
 
 const router = createRouter({
 history: createWebHistory(),
@@ -26,6 +27,12 @@ routes:[
       path: '/restaurant-detail/:id',
       name: 'restaurantDetail',
       component: RestaurantDetail,
+   },
+
+   {
+      path: '/order-results',
+      name: 'results',
+      component: Results,
    },
 
    {

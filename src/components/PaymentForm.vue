@@ -66,10 +66,20 @@ export default {
           quantity: product.quantity,
         })),
       }).then(response => {
-        console.log('ORDER CREATED:', response);
+          console.log('ORDER CREATED:', response);
+          this.clearCart();
+          this.$router.push({ name: 'results' });
       }).catch(error => {
-        console.error('Something went wrong in order creation:', error);
+          console.error('Something went wrong in order creation:', error);
+          this.$router.push({ name: 'error404' });
       });
+    },
+    saveCart(){
+      localStorage.setItem('cart', JSON.stringify(store.cart));
+    },
+    clearCart() {
+      store.cart = [];
+      this.saveCart();
     },
   },
   mounted() {
@@ -94,6 +104,7 @@ export default {
 <template>
   <div>
     {{ console.log(currentDate) }}
+    <h4>Complete the payment</h4>
     <form @submit.prevent="handleSubmit">
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
       <input type="text" v-model="customerName" placeholder="Customer Name">
@@ -101,7 +112,7 @@ export default {
       <input type="email" v-model="customerEmail" placeholder="Customer Email">
       <input type="number" v-model="customerPhone" placeholder="Customer Phone">
 
-      <button type="submit">Submit Payment</button>
+      <button type="submit" @click="clearCart(product)">Submit Payment</button>
     </form>
   </div>
 </template>
