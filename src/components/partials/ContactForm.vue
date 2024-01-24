@@ -8,6 +8,7 @@ export default {
   },
   data() {
     return {
+      store,
       name:'',
       email:'',
       message:'',
@@ -24,6 +25,17 @@ export default {
     }
   },
   methods: {
+    getRestaurantId(restaurantId) {
+      const restaurant = store.restaurants.find(r => r.id === restaurantId);
+      return restaurant ? restaurant.id : '';
+    },
+//     getRestaurantId(restaurantId) {
+//   const restaurant = store.restaurants.find(r => r.id === restaurantId);
+//   const result = restaurant ? restaurant.id : '';
+//   console.log(result);
+//   return result;
+// },
+
     sendForm(){
       const data = {
         name: this.name,
@@ -55,6 +67,9 @@ export default {
   <div v-if="!success" class="container">
     <h1>Compila il form!</h1>
     <form @submit.prevent="sendForm()">
+      <div>
+        <input type="hidden" name="restautrant_id" :value="getRestaurantId(store.cart[0].restaurant_id)">
+      </div>
       <div>
         <label for="name">Insert your name</label>
         <input v-model="name" type="text" name="name" id="name">
