@@ -53,7 +53,7 @@ export default {
 <template>
 
   <div v-if="!success" class="container">
-    <h1>Compila il form!</h1>
+   
     <form @submit.prevent="sendForm()">
       <div>
         <label for="name">Insert your name</label>

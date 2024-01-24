@@ -13,6 +13,7 @@ export default {
       customerAddress: '',
       customerEmail: '',
       customerPhone: '',
+      customerMessage: '',
       orderTotal: 0,
       currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
       dropinInstance: null,
@@ -30,6 +31,7 @@ export default {
 
     handleSubmit() {
       this.submitPayment();
+      this.sendForm();
     },
 
     submitPayment() {
@@ -81,6 +83,27 @@ export default {
       store.cart = [];
       this.saveCart();
     },
+    //EMAIL ----------------------------------
+    sendForm(){
+      const data = {
+        name: this.customerName,
+        email: this.customerEmail,
+        message: this.customerMessage,
+        address: this.customerAddress,
+        phone: this.customerPhone,
+      }
+      axios.post(store.apiUrl + 'send-email', data)
+           .then(response => {
+            console.log('MAIL INVIATAAAAA');
+            this.success = response.data.success;
+            if(!this.success){
+              this.errors = response.data.errors;
+            }
+           })
+           .catch(error =>{
+            console.log('ERRORE!!!', error);
+           })
+    }
   },
   mounted() {
     this.getClientToken().then(() => {
@@ -109,6 +132,7 @@ export default {
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
       <input type="text" v-model="customerName" placeholder="Customer Name">
       <input type="text" v-model="customerAddress" placeholder="Customer Address">
+      <textarea v-model="customerMessage" name="customerMessage" id="customerMessage" cols="30" rows="10"></textarea>
       <input type="email" v-model="customerEmail" placeholder="Customer Email">
       <input type="number" v-model="customerPhone" placeholder="Customer Phone">
 
