@@ -1,12 +1,38 @@
 <script>
+
 export default {
   name: 'Jumbotron',
-}
+  methods: {
+    nextSlide() {
+      $('#jumbocarousel').carousel('next');
+    },
+   
+  },
+  mounted() {
+    setInterval(() => {
+      this.nextSlide();
+    }, 5000);
+  },
+};
 </script>
 <template>
-  <div class="jumbotron text-center m-3">
-      <h2>What do you want to eat today?</h2>
-      <p>Select the type of restaurant to filter your search</p>
+
+  <div class="jumbotron text-center">
+    <!-- carousel  -->
+  
+        <div id="jumbocarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="/img/slide-1.jpg" class="d-block w-100 h-100 object-fit-cover" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="/img/slide-2.jpg" class="d-block w-100 h-100 object-fit-cover" alt="...">
+            </div>
+          </div>
+
+        </div>
+    <!-- /carousel  -->
   </div>
   
   
@@ -16,11 +42,6 @@ export default {
 <style lang="scss">
 @use '../../scss/main.scss' as *;
 
-.jumbotron {
-  padding: 80px 0 0 0;
-  h2 {
-    font-weight: 700;
-  }
-}
+
 
 </style>
