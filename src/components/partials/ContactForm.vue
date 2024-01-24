@@ -33,16 +33,16 @@ export default {
         phone: this.phone,
       }
       axios.post(store.apiUrl + 'send-email', data)
-           .then(response => {
+          .then(response => {
             console.log(response.data);
             this.success = response.data.success;
             if(!this.success){
               this.errors = response.data.errors;
             }
-           })
-           .catch(error =>{
+          })
+          .catch(error =>{
             console.log('ERRORE!!!', error);
-           })
+          })
     }
   },
   mounted() {

@@ -67,36 +67,77 @@ export default {
   
     <Jumbotron />
 
-  <section id="search-restaurant" class="container">
+  <section id="search-restaurant">
     <div class="text-center">
       <h2>What do you want to eat today?</h2>
       <p>Select the type of restaurant to filter your search</p>
     </div>
-    
+    <!-- slidex xl -->
     <div class="d-flex flex-wrap justify-content-center">
-  <swiper
-    ref="{swiperRef}"
-    :slidesPerView="11"
-    :spaceBetween="30"
-    :navigation="true"
-    :modules="modules"
-    class="mySwiper"
-  >
-    <swiper-slide v-for="type in store.types" :key="type.id">
-      <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
-        <img class="image" :src="type.image" alt="{{ type.name }}">
-        <span>{{ type.name }}</span>  
-      </button>
-    </swiper-slide>
-  </swiper>
-  <p class="append-buttons"></p> 
-</div>
+      <swiper
+      ref="{swiperRef}"
+      :slidesPerView="13"
+      :spaceBetween="30"
+      :navigation="true"
+      :modules="modules"
+      class="mySwiper d-none d-xl-block"
+      >
+
+        <swiper-slide v-for="type in store.types" :key="type.id">
+          <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
+            <img class="image" :src="type.image" alt="{{ type.name }}">
+            <span>{{ type.name }}</span>  
+          </button>
+        </swiper-slide>
+      </swiper>
+    </div>
+
+
+
+    <div class="d-flex flex-wrap justify-content-center">
+      <swiper
+        ref="{swiperRef}"
+        :slidesPerView="4.5"
+        :spaceBetween="10"
+        :navigation="true"
+        :modules="modules"
+        class="mySwiper d-md-none"
+      >
+        <swiper-slide v-for="type in store.types" :key="type.id">
+          <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
+            <img class="image" :src="type.image" alt="{{ type.name }}">
+            <span>{{ type.name }}</span>  
+          </button>
+        </swiper-slide>
+      </swiper>
+    </div>
+    
+
+    <div class="d-flex flex-wrap justify-content-center">
+      <swiper
+        ref="{swiperRef}"
+        :slidesPerView="7.5"
+        :spaceBetween="10"
+        :navigation="true"
+        :modules="modules"
+        class="mySwiper d-none d-md-block d-xl-none "
+      >
+        <swiper-slide v-for="type in store.types" :key="type.id">
+          <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
+            <img class="image" :src="type.image" alt="{{ type.name }}">
+            <span>{{ type.name }}</span>  
+          </button>
+        </swiper-slide>
+      </swiper>
+
+    </div>
+
 
     <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
       <Loader />
     </div>
     
-    <div v-else>
+    <div v-else class="container" >
           <div v-if="store.restaurants.length">
               <h2 v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
           
