@@ -1,4 +1,5 @@
 <script>
+import ContactForm from './partials/ContactForm.vue';
 import { store } from '../data/store';
 import axios from 'axios';
 
@@ -9,6 +10,9 @@ export default {
       store,
       clientToken: null, // Token per inizializzare Braintree Drop-in
     };
+  },
+  components:{
+    ContactForm
   },
   methods: {
     async getClientToken() {
@@ -58,6 +62,7 @@ export default {
 
 <template>
   <div>
+    <ContactForm />
     <div id="dropin-container"></div> <!-- Container per la Drop-in UI -->
     <button @click="submitPayment">Invia Pagamento</button>
   </div>
