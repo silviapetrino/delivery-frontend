@@ -138,7 +138,7 @@ export default {
     </div>
     
     <div v-else>
-          <div class="container debug d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center gap-2 text-center w-100" v-if="store.restaurants.length">
+          <div class="mt-3 container d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center gap-2 text-center w-100" v-if="store.restaurants.length">
               <h2 v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
           
                   <div v-for="restaurant in store.restaurants" :key="restaurant.id">
