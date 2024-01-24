@@ -60,6 +60,10 @@ export default {
     <Jumbotron />
 
   <section id="search-restaurant" class="container">
+    <div class="text-center">
+      <h2>What do you want to eat today?</h2>
+      <p>Select the type of restaurant to filter your search</p>
+    </div>
     
     <div class="d-flex flex-wrap justify-content-center">
       <div v-for="type in store.types" :key="type.id">
@@ -80,7 +84,7 @@ export default {
     
     <div v-else>
           <div v-if="store.restaurants.length">
-              <h2 v-if="selectedTypes.length > 0"> Restaurants found : {{ store.restaurants.length }}</h2>
+              <h2 v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
           
                   <div v-for="restaurant in store.restaurants" :key="restaurant.id">
                     <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">{{ restaurant.name }}</router-link>
@@ -105,6 +109,9 @@ export default {
 <style lang="scss" scoped>
 @use '../scss/main.scss' as *;
 
+h2 {
+    font-weight: 700;
+  }
 
 .type {
   width: 90px;
