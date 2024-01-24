@@ -17,8 +17,8 @@ export default {
       }
     },
 
-    saveCart(){
-      localStorage.setItem('cart', JSON.stringify(store.cart));
+    saveCart() {
+    localStorage.setItem('cart', JSON.stringify(store.cart));
     },
     clearCart() {
       store.cart = [];
@@ -55,13 +55,22 @@ export default {
       this.saveCart();
       return restaurant ? restaurant.name : '';
     },
+    goToCheckOut(){
+      this.$router.push({ name: 'checkout' });
+    }
   },
   // al created recupero la lista ristoranti per evitare problema asincronicità del codice 
   created() {
-   axios.get(store.apiUrl + 'restaurants').then(results => {
+    const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        store.cart = JSON.parse(savedCart);
+      }
+
+    axios.get(store.apiUrl + 'restaurants').then(results => {
           store.restaurants = results.data;
           this.isLoading = false;
         });
+        
   }
   
 }
@@ -82,6 +91,9 @@ export default {
     <ul class="d-flex p-0 m-0 gap-3">
       <li>
         <router-link :to="{name: 'home'}">Home</router-link>
+      </li>
+      <li>
+        <a href="#search-restaurant"> Restaurant Filter</a>
       </li>
       <li>
         <router-link :to="{name: 'aboutUs'}">About Us</router-link>
@@ -153,8 +165,8 @@ export default {
                 <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
                   <router-link v-if="store.cart.length > 0" :to="{name: 'home'}" class="text-decoration-none">Clear cart</router-link>
                 </button>
-                <button type="button" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0">
-                  <router-link v-if="store.cart.length > 0" :to="{name: 'checkout'}" class="text-decoration-none">Go to payment<i class="fa-solid fa-credit-card ms-2"></i></router-link></button>
+                <button type="button" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close"  @click="goToCheckOut()" v-if="store.cart.length > 0">
+                  Go to payment<i class="fa-solid fa-credit-card ms-2"></i></button>
               </div>
             </div>
           </div>

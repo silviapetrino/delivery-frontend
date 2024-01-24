@@ -138,14 +138,15 @@ export default {
     </div>
     
     <div v-else>
-          <div class="mt-3 container d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center gap-2 text-center w-100" v-if="store.restaurants.length">
+          <div class="mt-3 container d-flex flex-column flex-md-wrap justify-content-center align-items-center gap-2 text-center w-100" v-if="store.restaurants.length">
               <h2 v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
+              <div class="d-flex">
           
-                  <div v-for="restaurant in store.restaurants" :key="restaurant.id">
+                  <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="">
 
                     <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">
 
-                      <div style="width: 250px; height: 250px;" class="card p-2">
+                      <div class="card p-2 m-2 overflow-hidden">
                         <h3>{{ restaurant.name }}</h3>
                         <img class="w-100 h-100 object-fit-cover" :src="restaurant.image">
                       </div>
@@ -154,7 +155,7 @@ export default {
                     </router-link>
 
                   </div>
-              
+              </div>
 
             </div>
           
@@ -201,6 +202,10 @@ h2 {
     }
   }
 
+}
+.card{
+  width:250px;
+  height:300px;
 }
 
 @media all and (min-width: 576px){
