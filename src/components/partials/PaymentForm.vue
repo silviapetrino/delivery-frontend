@@ -7,6 +7,7 @@ export default {
   name: 'PaymentForm',
   data() {
     return {
+
       store,
       clientToken: null,
       customerName: '',

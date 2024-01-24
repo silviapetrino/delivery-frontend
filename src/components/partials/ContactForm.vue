@@ -33,16 +33,16 @@ export default {
         phone: this.phone,
       }
       axios.post(store.apiUrl + 'send-email', data)
-           .then(response => {
+          .then(response => {
             console.log(response.data);
             this.success = response.data.success;
             if(!this.success){
               this.errors = response.data.errors;
             }
-           })
-           .catch(error =>{
+          })
+          .catch(error =>{
             console.log('ERRORE!!!', error);
-           })
+          })
     }
   },
   mounted() {
@@ -71,12 +71,12 @@ export default {
         <p v-for="error in errors.message" class="error">{{ error }}</p>
       </div>
       <div>
-        <label for="address">Isert your address</label>
+        <label for="address">Insert your address</label>
         <input v-model="address" type="text" name="address" id="address">
         <p v-for="error in errors.address" class="error">{{ error }}</p>
       </div>
       <div>
-        <label for="phone">Isert your phone number</label>
+        <label for="phone">Insert your phone number</label>
         <input v-model="phone" type="text" name="phone" id="phone">
         <p v-for="error in errors.phone" class="error">{{ error }}</p>
       </div>
