@@ -1,8 +1,8 @@
 <script>
 import { store } from '../data/store';
+import PaymentForm from '../components/partials/PaymentForm.vue';
 import axios from 'axios';
 import Loader from '../components/partials/Loader.vue';
-import PaymentForm from '../components/paymentform.vue';
 
 export default {
   name: 'Checkout',
