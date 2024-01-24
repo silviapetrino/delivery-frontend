@@ -1,15 +1,12 @@
 <script>
-import { store } from '../data/store';
+import { store } from '../../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
-
-
 
 export default {
   name: 'PaymentForm',
   data() {
     return {
-  
       store,
       clientToken: null,
       customerName: '',
