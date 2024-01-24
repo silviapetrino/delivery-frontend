@@ -2,11 +2,13 @@
 import { store } from '../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import payment_validation from '../data/payment_validation';
 
 export default {
   name: 'PaymentForm',
   data() {
     return {
+      payment_validation,
       store,
       clientToken: null,
       customerName: '',
@@ -60,7 +62,7 @@ export default {
         customer_name: this.customerName,
         customer_address: this.customerAddress,
         customer_email: this.customerEmail,
-        customer_phone: this.customerPhone,
+        customer_phone: this.customerPhone.toString(),
         products: store.cart.map(product => ({
           id: product.id,
           quantity: product.quantity,
