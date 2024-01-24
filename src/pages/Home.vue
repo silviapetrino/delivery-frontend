@@ -145,9 +145,9 @@ export default {
 
                     <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">
 
-                      <div style="width: 250px;" class=" card p-1">
+                      <div style="width: 250px; height: 250px;" class="card p-2">
                         <h3>{{ restaurant.name }}</h3>
-                        <img class="w-100 h-100" :src="restaurant.image">
+                        <img class="w-100 h-100 object-fit-cover" :src="restaurant.image">
                       </div>
 
                       
