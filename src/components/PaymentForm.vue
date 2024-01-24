@@ -1,4 +1,5 @@
 <script>
+import ContactForm from './partials/ContactForm.vue';
 import { store } from '../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
@@ -19,6 +20,9 @@ export default {
       currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
       dropinInstance: null,
     };
+  },
+  components:{
+    ContactForm
   },
   methods: {
     async getClientToken() {
