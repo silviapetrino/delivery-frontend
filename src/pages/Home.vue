@@ -3,18 +3,28 @@ import { store } from '../data/store';
 import axios from 'axios';
 import Loader from '../components/partials/Loader.vue';
 import Jumbotron from '../components/partials/Jumbotron.vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/scss';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+
+import { Pagination } from 'swiper/modules';
 
 export default {
   name: 'home',
   components:{
-   Loader,
-   Jumbotron
+    Loader,
+    Jumbotron,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
       store,
       selectedTypes: [],
       isLoading: true,
+      modules: [Pagination, Navigation],
     }
   },
   methods: {
@@ -41,11 +51,9 @@ export default {
     //funzione per prendere tutti i types (la usiamo per riempire l'array in store e stampare i badge)
     getTypes(){
       axios.get(store.apiUrl + 'types')
-      .then(results =>{
-        store.types = results.data;
-        
-       
-      })
+      .then(results => {
+        store.types = results.data.filter(type => type.restaurants.length > 0);
+    })
     }
   },
   mounted() {
@@ -62,17 +70,23 @@ export default {
   <section id="search-restaurant" class="container">
     
     <div class="d-flex flex-wrap justify-content-center">
-      <div v-for="type in store.types" :key="type.id">
-        <button v-if="type.restaurants.length > 0"
-          class="d-flex flex-column align-items-center type"
-          :class="{'active-type': selectedTypes.includes(type.name)}"
-          @click="toggleType(type.name)"
-        >
-          <img class="image" :src="type.image" alt="{{ type.name }}">
-          <span>{{ type.name }}</span>  
-        </button>
-      </div>
-    </div>
+  <swiper
+    ref="{swiperRef}"
+    :slidesPerView="11"
+    :spaceBetween="30"
+    :navigation="true"
+    :modules="modules"
+    class="mySwiper"
+  >
+    <swiper-slide v-for="type in store.types" :key="type.id">
+      <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
+        <img class="image" :src="type.image" alt="{{ type.name }}">
+        <span>{{ type.name }}</span>  
+      </button>
+    </swiper-slide>
+  </swiper>
+  <p class="append-buttons"></p> 
+</div>
 
     <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
       <Loader />
