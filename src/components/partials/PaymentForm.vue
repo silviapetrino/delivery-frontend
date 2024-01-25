@@ -136,7 +136,7 @@ export default {
       <input type="email" v-model="customerEmail" placeholder="Customer Email">
       <input type="number" v-model="customerPhone" placeholder="Customer Phone">
 
-      <button type="submit" @click="clearCart(product)">Submit Payment</button>
+      <button type="submit" >Submit Payment</button>
     </form>
   </div>
 </template>
