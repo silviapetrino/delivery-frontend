@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       store,
-      user_id:'',
+      user_id: store.cart[0].restaurant_id ,
       name:'',
       email:'',
       message:'',
@@ -65,13 +65,12 @@ export default {
 </script>
 
 <template>
-
   <div v-if="!success" class="container">
     <h1>Compila il form!</h1>
     <form @submit.prevent="sendForm()">
       <div>
-        <label for="user_id">{{ store.cart[0].restaurant_id }}</label>
-        <input type="number" name="user_id" v-model="user_id">
+        
+        <input type="hidden" name="user_id" v-model="this.user_id">
       </div>  
       <div>
         <label for="name">Insert your name</label>
