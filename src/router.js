@@ -30,10 +30,21 @@ routes:[
    },
 
    {
-      path: '/order-results',
+      path: '/order-success',
       name: 'results',
       component: Results,
-   },
+      beforeEnter: (to, from, next) => {
+        if (!store.orderSuccess) {
+          next({ name: 'home' });
+        } else {
+          next();
+        }
+      },
+      beforeRouteLeave: (to, from, next) => {
+        store.orderSuccess = false;
+        next();
+      },
+    },
 
    {
    path: '/checkout',

@@ -68,8 +68,11 @@ export default {
         })),
       }).then(response => {
           console.log('ORDER CREATED:', response);
+          store.tempCustomerName = response.data.customer_name;
+          store.tempCustomerEmail = response.data.customer_email;
+          store.orderSuccess = true;
           this.clearCart();
-          this.$router.push({ name: 'results' });
+          this.$router.push({name: 'results'});
       }).catch(error => {
           console.error('Something went wrong in order creation:', error);
           this.$router.push({ name: 'error404' });
@@ -79,8 +82,15 @@ export default {
       localStorage.setItem('cart', JSON.stringify(store.cart));
     },
     clearCart() {
+      console.log('store.cart.restaurant_id', store.cart[0].restaurant_id);
+      store.tempRestaurantName = this.getRestaurantName(store.cart[0].restaurant_id);
+      console.log('store.tempRestaurantName', store.tempRestaurantName);
       store.cart = [];
       this.saveCart();
+    },
+    getRestaurantName(restaurantId) {
+      const restaurant = store.restaurants.find(r => r.id === restaurantId);
+      return restaurant ? restaurant.name : '';
     },
   },
   mounted() {

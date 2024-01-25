@@ -11,7 +11,7 @@ export default {
   mounted() {
     setInterval(() => {
       this.nextSlide();
-    }, 7000);
+    }, 4000);
   },
 };
 </script>
@@ -20,18 +20,18 @@ export default {
   <div class="jumbotron text-center">
     <!-- carousel  -->
   
-        <div id="jumbocarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div id="jumbocarousel" class="carousel slide " data-bs-ride="carousel">
 
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="/img/slide-1.jpg" class="d-block w-100 h-100 object-fit-cover" alt="...">
-              <a class="btn-cs btn-danger" href="#search-restaurant">
+          <div class="carousel-inner h-100">
+            <div class="carousel-item active h-100">
+              <img src="/img/prova-1.jpg" class="d-block w-100 h-100 object-fit-cover " alt="slide-1">
+              <a class="btn-cs" href="#search-restaurant">
                 <span>Find your favourite restaurant</span>
                 <i class="ms-1 fa-solid fa-utensils"></i>
               </a>
             </div>
             <div class="carousel-item">
-              <img src="/img/slide-2.jpg" class="d-block w-100 h-100 object-fit-cover" alt="...">
+              <img src="/img/prova-2.jpg" class="d-block w-100 h-100 object-fit-cover " alt="slide-2">
             </div>
           </div>
 
@@ -56,9 +56,9 @@ export default {
       background-color: $detail_color;
       color: $primary_color;
       padding: 5px 10px;
-      width: 150px;
+      width: 140px;
       bottom: 25px;
-      left: 110px;
+      left: 100px;
       font-size: 15px;
       &:hover{
         color: $detail_color;
@@ -67,12 +67,24 @@ export default {
     }
 }
 
-@media all and (min-width: 550px){
+@media all and (min-width: 440px){
+
+  #jumbocarousel {
+    .btn-cs {
+      bottom: 40px;
+      left: 125px;     
+      }
+  }
+
+}
+
+
+@media all and (min-width: 545px){
 
   #jumbocarousel {
     .btn-cs {
       bottom: 55px;
-      left: 150px;     
+      left: 145px;     
       }
   }
 
@@ -83,11 +95,21 @@ export default {
 
     #jumbocarousel {
       .btn-cs {
-        bottom: 50px;
-        left: 170px;     
-        }
+        bottom: 64px;
+        left: 168px;     
+      }
   }
  
+}
+@media all and (min-width: 700px){
+
+  #jumbocarousel {
+    .btn-cs {
+      bottom: 75px;
+      left: 180px;     
+    }
+  }
+
 }
 
 @media all and (min-width: 750px){
@@ -95,9 +117,9 @@ export default {
 #jumbocarousel {
   .btn-cs {
     width: 160px;
-    font-size: 15px;
-    bottom: 80px;
-    left: 220px;     
+    font-size: 16px;
+    bottom: 90px;
+    left: 200px;     
     }
   }
 
@@ -128,7 +150,7 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      left: 270px;
+      left: 265px;
       bottom: 120px;     
     }
   }
@@ -152,7 +174,8 @@ export default {
 #jumbocarousel {
   .btn-cs {
       width: 230px;
-      left: 340px; 
+      left: 320px;
+      bottom: 160px;   
     }
   }
 
@@ -174,6 +197,8 @@ export default {
 @media all and (min-width: 1400px){
 
     #jumbocarousel {
+      height: 100vh;
+     
     .btn-cs {
         width: 280px;
         font-size: 25px;
@@ -186,6 +211,7 @@ export default {
 @media all and (min-width: 1500px){
 
     #jumbocarousel {
+     
       .btn-cs {
           width: 350px;
           left: 400px; 
