@@ -138,9 +138,9 @@ export default {
     </div>
     
     <div v-else>
-          <div class="mt-3 container d-flex flex-column flex-md-wrap justify-content-center align-items-center gap-2 text-center w-100" v-if="store.restaurants.length">
-              <h2 v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
-              <div class="d-flex">
+      <h2 class="p-3" v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
+          <div class="mt-3 container " v-if="store.restaurants.length">
+              <div class="d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center">
           
                   <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="">
 
@@ -160,7 +160,7 @@ export default {
             </div>
           
             <div v-else>
-                <h3>There are no restaurants for these tipologies: {{ selectedTypes.join(', ') }}</h3>
+                <h3 class="ps-3">There are no restaurants for these tipologies: {{ selectedTypes.join(', ') }}</h3>
             </div>
 
     </div>
