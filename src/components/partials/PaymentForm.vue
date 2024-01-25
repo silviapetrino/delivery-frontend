@@ -106,14 +106,27 @@ export default {
   <div>
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
-    <form @submit.prevent="handleSubmit">
+    <form class="w-50" @submit.prevent="handleSubmit">
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
-      <input type="text" v-model="customerName" placeholder="Customer Name">
-      <input type="text" v-model="customerAddress" placeholder="Customer Address">
-      <input type="email" v-model="customerEmail" placeholder="Customer Email">
-      <input type="number" v-model="customerPhone" placeholder="Customer Phone">
 
-      <button type="submit" @click="clearCart(product)">Submit Payment</button>
+      <label for="name" class="form-label my-1">Name:</label>
+      <input id="name" class="form-control" type="text" v-model="customerName" placeholder="Your name">
+
+      <label for="address" class="form-label my-1">Address:</label>
+      <input id="address" class="form-control" type="text" v-model="customerAddress" placeholder="Your address">
+
+      <label for="email" class="form-label my-1">Email:</label>
+      <input id="email" class="form-control" type="email" v-model="customerEmail" placeholder="Your email">
+
+      <label for="phone" class="form-label my-1">Phone:</label>
+      <input id="phone" class="form-control w-50" type="number" v-model="customerPhone" placeholder="Your phone">
+
+      <button class="btn btn-success my-3" type="submit" @click="clearCart(product)">Submit Payment</button>
     </form>
   </div>
 </template>
+
+<style>
+
+
+</style>
