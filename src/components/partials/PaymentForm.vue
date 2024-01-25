@@ -3,6 +3,9 @@ import { store } from '../../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
 
+import { validateName } from '../../data/validation.js'; 
+
+
 export default {
   name: 'PaymentForm',
   data() {
@@ -17,6 +20,10 @@ export default {
       orderTotal: 0,
       currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
       dropinInstance: null,
+
+
+      /* VALIDATION */
+      isNameValid: null,
     };
   },
   methods: {
@@ -30,7 +37,13 @@ export default {
     },
 
     handleSubmit() {
-      this.submitPayment();
+      
+      if (this.isNameValid) {
+        this.submitPayment();
+      } else {
+        // Mostra un messaggio di errore o gestisci come preferisci
+      }
+      
     },
 
     submitPayment() {
@@ -82,6 +95,17 @@ export default {
       store.cart = [];
       this.saveCart();
     },
+
+/* VALIDATION */
+    validateCustomerName() {
+    this.isNameValid = validateName(this.customerName);
+  }, 
+  },
+
+  watch: {
+    customerName() {
+      this.validateCustomerName();
+    }
   },
   mounted() {
     this.getClientToken().then(() => {
@@ -110,7 +134,12 @@ export default {
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
 
       <label for="name" class="form-label my-1">Name:</label>
-      <input id="name" class="form-control" type="text" v-model="customerName" placeholder="Your name">
+      <input 
+      id="name" 
+      :class="['form-control', isNameValid === null ? 'is-warning' : isNameValid ? 'is-valid' : 'is-invalid']" 
+      type="text" 
+      v-model="customerName" 
+      placeholder="Your name">
 
       <label for="address" class="form-label my-1">Address:</label>
       <input id="address" class="form-control" type="text" v-model="customerAddress" placeholder="Your address">
@@ -126,7 +155,16 @@ export default {
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 
+.is-warning {
+  border-color: orange;
+}
+.is-valid {
+  border-color: green;
+}
+.is-invalid {
+  border-color: red;
+}
 
 </style>

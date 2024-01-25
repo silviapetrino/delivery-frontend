@@ -4,6 +4,8 @@ import PaymentForm from '../components/partials/PaymentForm.vue';
 import axios from 'axios';
 import Loader from '../components/partials/Loader.vue';
 
+
+
 export default {
   name: 'Checkout',
   components: {
@@ -13,6 +15,7 @@ export default {
   data() {
     return {
       store,
+
     }
   },
   methods: {
