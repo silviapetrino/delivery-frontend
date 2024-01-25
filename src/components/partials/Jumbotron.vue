@@ -20,7 +20,7 @@ export default {
   <div class="jumbotron text-center">
     <!-- carousel  -->
   
-        <div id="jumbocarousel" class="carousel slide " data-bs-ride="carousel">
+        <div id="jumbocarousel" class="carousel slide mb-3" data-bs-ride="carousel">
 
           <div class="carousel-inner h-100">
             <div class="carousel-item active h-100">
