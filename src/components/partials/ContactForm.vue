@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       store,
+      user_id:'',
       name:'',
       email:'',
       message:'',
@@ -16,6 +17,7 @@ export default {
       phone:'',
       success: false,
       errors: {
+        user_id:[],
         name:[],
         email:[],
         message:[],
@@ -25,17 +27,11 @@ export default {
     }
   },
   methods: {
-    getRestaurantId(restaurantId) {
-      const restaurant = store.restaurants.find(r => r.id === restaurantId);
-      return restaurant ? restaurant.id : '';
-    },
-//     getRestaurantId(restaurantId) {
-//   const restaurant = store.restaurants.find(r => r.id === restaurantId);
-//   const result = restaurant ? restaurant.id : '';
-//   console.log(result);
-//   return result;
-// },
 
+    getUserId(){
+     user_id =  store.cart[0].restaurant_id;
+    },
+    
     sendForm(){
       const data = {
         name: this.name,
@@ -43,6 +39,7 @@ export default {
         message: this.message,
         address: this.address,
         phone: this.phone,
+        user_id: this.user_id
       }
       axios.post(store.apiUrl + 'send-email', data)
            .then(response => {
@@ -57,6 +54,11 @@ export default {
            })
     }
   },
+  computed:{
+        
+   
+  
+  },
   mounted() {
   }
 }
@@ -68,8 +70,9 @@ export default {
     <h1>Compila il form!</h1>
     <form @submit.prevent="sendForm()">
       <div>
-        <input type="hidden" name="restautrant_id" :value="getRestaurantId(store.cart[0].restaurant_id)">
-      </div>
+        <label for="user_id">{{ store.cart[0].restaurant_id }}</label>
+        <input type="number" name="user_id" v-model="user_id">
+      </div>  
       <div>
         <label for="name">Insert your name</label>
         <input v-model="name" type="text" name="name" id="name">
