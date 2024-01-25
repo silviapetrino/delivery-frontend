@@ -121,7 +121,7 @@ export default {
       <label for="phone" class="form-label my-1">Phone:</label>
       <input id="phone" class="form-control w-50" type="number" v-model="customerPhone" placeholder="Your phone">
 
-      <button class="btn btn-success my-3" type="submit" @click="clearCart(product)">Submit Payment</button>
+      <button class="btn btn-success my-3" type="submit" >Submit Payment</button>
     </form>
   </div>
 </template>
