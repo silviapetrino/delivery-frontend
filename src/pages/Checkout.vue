@@ -1,6 +1,7 @@
 <script>
 import { store } from '../data/store';
 import PaymentForm from '../components/partials/PaymentForm.vue';
+import ContactForm from '../components/partials/ContactForm.vue';
 import axios from 'axios';
 import Loader from '../components/partials/Loader.vue';
 
@@ -11,6 +12,8 @@ export default {
   components: {
     PaymentForm,
     Loader,
+    ContactForm
+
   },
   data() {
     return {
@@ -90,6 +93,7 @@ export default {
     </h4>
     <h5 class="my-4">or else you can ....</h5>
     <PaymentForm/>
+    <ContactForm/>
   </div>
 </template>
 
