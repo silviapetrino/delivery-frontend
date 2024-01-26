@@ -3,7 +3,7 @@ import { store } from '../../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
 
-import { validateName } from '../../data/validation.js'; 
+import { validateCustomerName, validateCustomerAddress, validateCustomerEmail, validateCustomerPhone } from '../../data/validation.js'; 
 
 
 export default {
@@ -23,7 +23,12 @@ export default {
 
 
       /* VALIDATION */
+      submitAttempted: false,
       isNameValid: null,
+      isAddressValid: null,
+      isEmailValid: null,
+      isPhoneValid: null,
+
     };
   },
   methods: {
@@ -37,13 +42,17 @@ export default {
     },
 
     handleSubmit() {
-      
-      if (this.isNameValid) {
+      this.submitAttempted = true;
+      this.validateName();
+      this.validateAddress();
+      this.validateEmail();
+      this.validatePhone();
+
+      if (this.isNameValid && this.isAddressValid && this.isEmailValid && this.isPhoneValid) {
         this.submitPayment();
       } else {
-        // Mostra un messaggio di errore o gestisci come preferisci
+        // Gestire il caso in cui la validazione fallisce
       }
-      
     },
 
     submitPayment() {
@@ -97,16 +106,67 @@ export default {
     },
 
 /* VALIDATION */
-    validateCustomerName() {
-    this.isNameValid = validateName(this.customerName);
-  }, 
+    validateName() {
+      const isValid = validateCustomerName(
+        this.customerName, 
+        '#errorName', 
+        '#name',
+        this.submitAttempted
+      );
+      this.isNameValid = isValid;
+    },
+
+    validateAddress() {
+      this.isAddressValid = validateCustomerAddress(
+        this.customerAddress, 
+        '#errorAddress', 
+        '#address', 
+        this.submitAttempted
+      );
+    },
+    validateEmail() {
+      this.isEmailValid = validateCustomerEmail(
+        this.customerEmail, 
+        '#errorEmail', 
+        '#email', 
+        this.submitAttempted
+      );
+    },
+    validatePhone() {
+      this.isPhoneValid = validateCustomerPhone(
+        this.customerPhone, 
+        '#errorPhone', 
+        '#phone', 
+        this.submitAttempted
+      );
+    },
+  
   },
 
   watch: {
-    customerName() {
-      this.validateCustomerName();
+    customerName(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      this.validateName();
     }
   },
+  customerAddress(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      this.validateAddress();
+    }
+  },
+  customerEmail(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      this.validateEmail();
+    }
+  },
+  customerPhone(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      this.validatePhone();
+    }
+  },
+  },
+
+
   mounted() {
     this.getClientToken().then(() => {
       if (this.clientToken) {
@@ -122,6 +182,11 @@ export default {
         });
       }
     });
+    /* VALIDATION */
+    $('#name').on('input', this.validateName);
+    $('#address').on('input', this.validateAddress);
+    $('#email').on('input', this.validateEmail);
+    $('#phone').on('input', this.validatePhone);
   },
 };
 </script>
@@ -134,21 +199,23 @@ export default {
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
 
       <label for="name" class="form-label my-1">Name:</label>
-      <input 
-      id="name" 
-      :class="['form-control', isNameValid === null ? 'is-warning' : isNameValid ? 'is-valid' : 'is-invalid']" 
-      type="text" 
-      v-model="customerName" 
-      placeholder="Your name">
+      <input id="name" class="form-control" type="text" v-model="customerName" placeholder="Your name">
+      <div id="errorName" class="text-danger"></div>
 
       <label for="address" class="form-label my-1">Address:</label>
       <input id="address" class="form-control" type="text" v-model="customerAddress" placeholder="Your address">
+      <div id="errorAddress" class="text-danger"></div>
+
 
       <label for="email" class="form-label my-1">Email:</label>
       <input id="email" class="form-control" type="email" v-model="customerEmail" placeholder="Your email">
+      <div id="errorEmail" class="text-danger"></div>
+
 
       <label for="phone" class="form-label my-1">Phone:</label>
-      <input id="phone" class="form-control w-50" type="number" v-model="customerPhone" placeholder="Your phone">
+      <input id="phone" class="form-control" type="number" v-model="customerPhone" placeholder="Your phone">
+      <div id="errorPhone" class="text-danger"></div>
+
 
       <button class="btn btn-success my-3" type="submit" >Submit Payment</button>
     </form>
