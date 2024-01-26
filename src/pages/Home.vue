@@ -140,13 +140,13 @@ export default {
     <div v-else>
       <h2 class="my-2 p-3" v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
           <div class="mt-3 container " v-if="store.restaurants.length">
-              <div class="d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center">
+              <div class="d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center gap-3">
           
                   <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="">
 
-                    <router-link class="text-dark text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">
+                    <router-link class="card text-white text-decoration-none" :to="{ name: 'restaurantDetail', params: { id: restaurant.id } }">
 
-                      <div class="card p-2 m-2 overflow-hidden">
+                      <div class=" p-2 m-2 overflow-hidden">
                         <h3>{{ restaurant.name }}</h3>
                         <img class="w-100 h-100 object-fit-cover" :src="restaurant.image">
                       </div>
@@ -207,10 +207,10 @@ h2 {
   }
 
 }
-.card{
-  width:250px;
-  height:300px;
-}
+// .card{
+//   width:250px;
+//   height:300px;
+// }
 
 @media all and (min-width: 576px){
   .type {
@@ -229,4 +229,49 @@ h2 {
   }
 }
 
+
+// card 
+
+.card {
+  border-radius: 10px;
+  filter: drop-shadow(0 5px 10px 0 #ffffff);
+  width: 400px;
+  height: 220px;
+  background-color: $secondary_color;
+  padding: 20px;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  transition: 1s ease-in;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -15px;
+  right: -15px;
+  background: $tertiary_color;
+  height:250px;
+  width: 25px;
+  border-radius: 32px;
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition: transform .3s ease-out;
+}
+
+.card:hover::before{
+    transition-delay:0.2s ;
+
+  transform: scale(40);
+}
+
+.card:hover{
+    color: #ffffff;
+
+}
+
+.card p{
+    padding: 10px 0;
+}
 </style>
