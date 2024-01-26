@@ -82,26 +82,30 @@ export default {
 <header>
 
 <div class="container d-flex justify-content-between align-items-center h-100">
-
+   <!-- navbar links -->
   <nav class="d-flex align-items-center h-100 gap-5">
-      <a class="navbar-brand fs-4 h-100" href="#">
-              <img src="/img/logo.jpg" alt="Deliveboo_logo" class="logo h-100 p-2">
-              <span class= "brand d-none d-sm-inline-block ">DeliveBoo</span>
-      </a>
+
+    <router-link :to="{name: 'home'}" class="navbar-brand fs-4 h-100" href="#">
+        <img src="/img/logo.jpg" alt="Deliveboo_logo" class="logo h-100 p-2">
+        <span class= "brand d-none d-sm-inline-block ">DeliveBoo</span>
+    </router-link>
+
     <ul class="d-flex p-0 m-0 gap-3">
       <li>
         <router-link :to="{name: 'home'}">Home</router-link>
       </li>
       <li>
-        <a href="#search-restaurant"> Restaurant Filter</a>
+        <a href="#search-restaurant">Search Restaurant</a>
       </li>
       <li>
         <router-link :to="{name: 'aboutUs'}">About Us</router-link>
       </li>
     </ul>
-  </nav>
 
-  <div class="shop">
+  </nav>
+  <!-- /navbar links  -->
+  <!-- cart button and offcanvas  -->
+  <div class="shop ">
 
     <div class="cart-container position-relative">
       <div v-if="store.cart.length > 0" class="cart-counter position-absolute d-flex justify-content-center align-items-center ">
@@ -112,7 +116,6 @@ export default {
       </button>
     </div>
 
-    <!-- offcanvas  -->
     <div class="offcanvas offcanvas-end offcanvas-custom" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       
         <div class="container" id="cart">
@@ -150,8 +153,7 @@ export default {
 
           <span v-if="store.cart.length > 0" class="d-block fs-5"><strong>Total: </strong>{{ getTotalPrice() }} &euro;</span>
         
-          
-
+        
           <div v-if="store.cart.length > 0">
             <div class="my-2">
               <h3>Your cart is from:</h3>
@@ -173,7 +175,7 @@ export default {
         </div>
       </div>
     </div>
-  <!-- offcanvas  -->
+    <!-- cart button and offcanvas  -->
 
   </div>
 </div>
@@ -199,7 +201,7 @@ header {
   nav{
     router-link, a {
       color: $primary_color;
-      &:hover {
+      &:hover, &.active {
         color: $secondary_color;
       }
     }
