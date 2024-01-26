@@ -195,7 +195,7 @@ export default {
   <div>
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
-    <form class="w-50" @submit.prevent="handleSubmit">
+    <form novalidate class="w-50" @submit.prevent="handleSubmit">
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
 
       <label for="name" class="form-label my-1">Name:</label>
@@ -208,12 +208,12 @@ export default {
 
 
       <label for="email" class="form-label my-1">Email:</label>
-      <input id="email" class="form-control" type="email" v-model="customerEmail" placeholder="Your email">
+      <input id="email" class="form-control" type="text" v-model="customerEmail" placeholder="Your email">
       <div id="errorEmail" class="text-danger"></div>
 
 
       <label for="phone" class="form-label my-1">Phone:</label>
-      <input id="phone" class="form-control" type="number" v-model="customerPhone" placeholder="Your phone">
+      <input id="phone" class="form-control" type="text" v-model="customerPhone" placeholder="Your phone">
       <div id="errorPhone" class="text-danger"></div>
 
 

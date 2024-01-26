@@ -101,7 +101,7 @@ export function validateCustomerPhone(phoneNumber, errorElement, inputElement, i
   let errorMessage = '';
 
   // Permette cifre, spazi, parentesi e trattini
-  const phoneRegex = /^[0-9\s\-\(\)]+$/;
+  const phoneRegex = /^[0-9+\s]+$/;
 
   if (phoneNumber.length < 7 || phoneNumber.length > 15) {
     errorMessage = 'Phone number must be between 7 and 15 digits.';
