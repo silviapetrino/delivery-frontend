@@ -164,10 +164,10 @@ export default {
                 <a class="text-white text-decoration-none badge-cs d-flex justify-content-center align-items-center" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
                 Go back to restaurant
                 </a>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
+                <button type="button" class="btn btn-danger" style="border-radius: 15px;" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
                   <router-link v-if="store.cart.length > 0" :to="{name: 'home'}" class="text-decoration-none">Clear cart</router-link>
                 </button>
-                <button type="button" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close"  @click="goToCheckOut()" v-if="store.cart.length > 0">
+                <button type="button" style="border-radius: 15px;" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close"  @click="goToCheckOut()" v-if="store.cart.length > 0">
                   Go to payment<i class="fa-solid fa-credit-card ms-2"></i></button>
               </div>
             </div>
@@ -266,12 +266,12 @@ header {
       color: $secondary_color;
     }
     .quantity{
-      display:inline-block;
-      width:20px;
-      font-size: 15px;
+    width:30px;
+    display: inline-block;
+    text-align: center;
     }
     .price{
-      width: 80px;
+      width: 100px;
     }
     .line{
       height: 20px;

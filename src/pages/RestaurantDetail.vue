@@ -180,7 +180,7 @@ export default {
                     >
                       <i class="fa-solid fa-minus"></i>
                     </button>
-                    <span class="mx-3">{{ product.tempQuantity }}</span>
+                    <span class="mx-1 quantity " >{{ product.tempQuantity }}</span>
                     <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-1">
                       <i class="fa-solid fa-plus"></i>
                     </button>
@@ -320,5 +320,10 @@ export default {
       border-radius: 15px;
       color: $primary_color;
     }
+  .quantity{
+    width:30px;
+    display: inline-block;
+    text-align: center;
+  }
 
 </style>
