@@ -50,7 +50,8 @@ export default {
         // alert('you can only add products from a single restaurant per order.')
         product.tempQuantity = 1;
         this.error = true;
-        this.showModal = true; 
+        this.showModal = true;
+        this.showToast[product.id] = false;
         return;
         }else{
           //SE let existingProduct esiste: aggiungo alla quantità del prodotto nel carrello la quantity che passo come parametro in addToCart()
@@ -148,7 +149,7 @@ export default {
         <div class="card text-center">
           <h1 class="mb-2">{{restaurant.name}}</h1>
           <ul class="d-flex justify-content-center align-content-center flex-wrap">
-            <li v-for="type in restaurant.types" :key="type.id" class="me-3 mb-2 badge text-bg-info">
+            <li v-for="type in restaurant.types" :key="type.id" class="badge-cs me-3 mb-2">
               {{ type.name }}
             </li>
           </ul>
@@ -184,7 +185,7 @@ export default {
                       <i class="fa-solid fa-plus"></i>
                     </button>
                   </div>
-                  <button @click="addToCart(product, product.tempQuantity)" class="add-product btn btn-primary p-2 fw-bold rounded-1">
+                  <button @click="addToCart(product, product.tempQuantity)" class="add-product badge-cs p-2 fw-bold rounded-1">
                     Add to cart
                   </button>
                 </div>
@@ -311,5 +312,13 @@ export default {
  .restaurant.details {
    padding-top: 100px;
   }
+
+
+  .badge-cs {
+      background-color: $secondary_color;
+      padding: 2px 10px;
+      border-radius: 15px;
+      color: $primary_color;
+    }
 
 </style>

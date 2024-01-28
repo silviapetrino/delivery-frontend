@@ -161,7 +161,7 @@ export default {
               <p class="fw-bold text-danger">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout
               </p>
               <div class="d-flex gap-2">
-                <a class="text-white text-decoration-none btn btn-primary" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
+                <a class="text-white text-decoration-none badge-cs d-flex justify-content-center align-items-center" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
                 Go back to restaurant
                 </a>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
@@ -187,6 +187,7 @@ export default {
 
 <style lang="scss" scoped>
 @use '../../scss/main.scss' as *;
+
 
 
 header {
@@ -299,5 +300,12 @@ header {
     }
   }
 }
+
+.badge-cs {
+      background-color: $secondary_color;
+      padding: 2px 10px;
+      border-radius: 15px;
+      color: $primary_color;
+    }
 
 </style>
