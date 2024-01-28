@@ -17,9 +17,23 @@ export default {
       customerAddress: '',
       customerEmail: '',
       customerPhone: '',
+      customerMessage: '',
       orderTotal: 0,
       currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
       dropinInstance: null,
+
+      /* MAIL */
+
+      user_id: store.cart[0].restaurant_id ,
+      success: false,
+      errors: {
+        user_id:[],
+        name:[],
+        email:[],
+        message:[],
+        address:[],
+        phone:[],
+      },
 
 
       /* VALIDATION */
@@ -50,6 +64,7 @@ export default {
 
       if (this.isNameValid && this.isAddressValid && this.isEmailValid && this.isPhoneValid) {
         this.submitPayment();
+        this.sendMail();
       } else {
         // Gestire il caso in cui la validazione fallisce
       }
@@ -114,6 +129,35 @@ export default {
       const restaurant = store.restaurants.find(r => r.id === restaurantId);
       return restaurant ? restaurant.name : '';
     },
+
+/* MAILING SERVICE */
+
+    getUserId(){
+        user_id =  store.cart[0].restaurant_id;
+        },
+        
+        sendMail(){
+          const data = {
+            name: this.customerName,
+            email: this.customerEmail,
+            message: this.customerMessage,
+            address: this.customerAddress,
+            phone: this.customerPhone,
+            user_id: this.user_id
+          }
+        
+          axios.post(store.apiUrl + 'send-email', data)
+              .then(response => {
+                console.log(response.data);
+                this.success = response.data.success;
+                if(!this.success){
+                  this.errors = response.data.errors;
+                }
+              })
+              .catch(error =>{
+                console.log('ERRORE!!!', error);
+              })
+        },
 
 /* VALIDATION */
     validateName() {
@@ -226,6 +270,12 @@ export default {
       <input id="phone" class="form-control" type="text" v-model="customerPhone" placeholder="Your phone">
       <div id="errorPhone" class="text-danger"></div>
 
+      <div>
+        <label class="my-1" for="customerMessage">Insert a message:</label>
+        <textarea class="form-control" v-model="customerMessage" name="customerMessage" id="customerMessage" rows="3"></textarea>
+        <p v-for="error in errors.message" class="error">{{ error }}</p>
+      </div>
+
 
       <button class="btn btn-success my-3" type="submit" >Submit Payment</button>
     </form>
@@ -242,6 +292,18 @@ export default {
 }
 .is-invalid {
   border-color: red;
+}
+
+form{
+  textarea{
+    display: block;
+  
+  }
+}
+
+.error{
+  color: red;
+  margin: 10px;
 }
 
 </style>
