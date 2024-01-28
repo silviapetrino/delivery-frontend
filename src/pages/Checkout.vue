@@ -105,4 +105,8 @@ export default {
   .link{
     background-color: $secondary_color;
   }
+  .table > :not(caption) > * > * {
+    background-color: $primary_color;
+  }
+
 </style>

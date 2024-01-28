@@ -11,7 +11,7 @@ export default {
   mounted() {
     setInterval(() => {
       this.nextSlide();
-    }, 4000);
+    }, 10000);
   },
 };
 </script>

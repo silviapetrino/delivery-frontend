@@ -3,7 +3,6 @@ import { store } from './data/store';
 import Home from './pages/Home.vue';
 import Error404 from './pages/Error404.vue';
 import RestaurantDetail from './pages/RestaurantDetail.vue';
-import AboutUs from './pages/AboutUs.vue';
 import Checkout from './pages/Checkout.vue';
 import Results from './pages/Results.vue';
 
@@ -16,11 +15,6 @@ routes:[
       path: '/',
       name: 'home',
       component: Home
-   },
-   {
-      path: '/AboutUs',
-      name: 'aboutUs',
-      component: AboutUs
    },
 
    {

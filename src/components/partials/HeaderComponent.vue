@@ -94,11 +94,8 @@ export default {
       <li>
         <router-link :to="{name: 'home'}">Home</router-link>
       </li>
-      <li>
+      <li v-if="$route.name === 'home'">
         <a href="#search-restaurant">Search Restaurant</a>
-      </li>
-      <li>
-        <router-link :to="{name: 'aboutUs'}">About Us</router-link>
       </li>
     </ul>
 
@@ -125,7 +122,7 @@ export default {
           </div>
           <div class="offcanvas-body">
           <h5>Order Summary</h5>
-          <h5 style="width: 250px;" class="text-danger" v-if="store.cart.length === 0">You don't have any product in your cart, feel free to add as many product as you want from your favourite restaurant!</h5> 
+          <h5 style="width: 250px;" class="message" v-if="store.cart.length === 0">You don't have any product in your cart, feel free to add as many product as you want from your favourite restaurant!</h5> 
           <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless ">
             <thead>
               <tr class="text-center">
@@ -158,7 +155,7 @@ export default {
             <div class="my-2">
               <h3>Your cart is from:</h3>
               <h4>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h4>
-              <p class="fw-bold text-danger">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout
+              <p class="fw-bold message">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout
               </p>
               <div class="d-flex gap-2">
                 <a class="text-white text-decoration-none badge-cs d-flex justify-content-center align-items-center" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
@@ -307,5 +304,7 @@ header {
       border-radius: 15px;
       color: $primary_color;
     }
-
+.message{
+  color:$tertiary_color;
+}
 </style>

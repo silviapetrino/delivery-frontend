@@ -190,12 +190,13 @@ export default {
                   </button>
                 </div>
                     <!-- toast  -->
-                <div v-if="showToast[product.id]" class="toast-cs p-1 text-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div v-if="showToast[product.id]" class="toast-cs p-1 text-center d-flex" role="alert" aria-live="assertive" aria-atomic="true">
                   <div class="toast-header d-flex flex-column">
-                      <strong>Add to cart!</strong>
-                    <img src="/img/cart.jpg" class="rounded me-2" alt="add-to-cart">
+                    
+                    <img src="/img/cart.jpg" class="rounded me-2" style="width:100px;" alt="add-to-cart">
                   </div>
                   <div class="toast-body message">
+                    <p class="message-title"><strong>Added to cart!</strong></p>
                     <strong><span>{{ message[product.id] }}</span></strong>
                   </div>
                 </div>
@@ -224,9 +225,7 @@ export default {
 #cart{
   border: 1px solid black;
 }
-.message{
-  color: red;
-}
+
 //  modal 
 .modal {
     display: none;
@@ -262,14 +261,20 @@ export default {
 
   // toast 
   .toast-cs {
-    border: 3px solid $tertiary_color;
+    border: 3px solid $secondary_color;
     border-radius: 20px;
-    width: 110px;
+    width: 250px;
     -webkit-box-shadow: -13px 8px 16px -16px rgb(248, 6, 6);
     -moz-box-shadow:  -13px 8px 16px -16px rgba(120, 82, 17, 1);
     box-shadow:  -13px 8px 16px -16px rgba(120, 82, 17, 1);
      img {
-      width: 40px;
+      width: 100px;
+     }
+     .message-title{
+      color:$secondary_color;
+     }
+     .message{
+      color:$tertiary_color
      }
   }
  
