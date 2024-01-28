@@ -14,6 +14,7 @@ export default {
       message : {},
       showModal: false,
       error: false,
+      showToast: {}, 
     }
   },
 
@@ -34,6 +35,7 @@ export default {
 
     addToCart(product, quantity) {
       if (store.cart.length >= 0) {
+        this.showToast[product.id] = true;
         this.message[product.id] = `You added ${quantity} ${product.name} to the cart!`;
         product.tempQuantity = 1;
       }
@@ -65,7 +67,9 @@ export default {
         this.saveCart();
       }
       setTimeout(() => {
+        this.showToast[product.id] = false;
         this.message[product.id] = '';
+        
       }, 3500);
     },
 
@@ -165,6 +169,8 @@ export default {
                 <h4 class="card-title">{{product.name}} </h4>
                 <p>Ingredients: {{ product.ingredients }}</p> 
                 <span>Price: {{ product.price }} &euro; </span>
+
+              <div class="actions-and-toast d-flex gap-2">
                 <div class="actions d-flex flex-column my-3">
                   <div class="mb-2">
                     <button
@@ -182,9 +188,21 @@ export default {
                     Add to cart
                   </button>
                 </div>
-                <div v-if="!this.error" class="message">
-                  <span>{{ message[product.id] }}</span>
+                    <!-- toast  -->
+                <div v-if="showToast[product.id]" class="toast-cs p-1 text-center" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header d-flex flex-column">
+                    <div>
+                      <strong>Add to cart!</strong>
+                    </div>
+                    <img  src="/img/cart.jpg" class="rounded me-2" alt="add-to-cart">
+                  </div>
+                  <div class="toast-body message">
+                    <strong><span>{{ message[product.id] }}</span></strong>
+                  </div>
                 </div>
+              <!-- /toast  -->
+              </div>
+                
               </div>
               <div class="w-25 d-flex flex-column align-items-center">
                 <img :src="product.image" alt="Card image cap">
@@ -242,6 +260,31 @@ export default {
   }
 
   //  /modal 
+
+  // toast 
+  .toast-cs {
+    border: 3px solid $tertiary_color;
+    border-radius: 20px;
+    width: 120px;
+    -webkit-box-shadow: -13px 8px 16px -16px rgb(248, 6, 6);
+    -moz-box-shadow:  -13px 8px 16px -16px rgba(120, 82, 17, 1);
+    box-shadow:  -13px 8px 16px -16px rgba(120, 82, 17, 1);
+     img {
+      width: 60px;
+     }
+  }
+    @media all and (min-width: 576px){
+    .toast-cs{
+      width: 140px;
+      img {
+      width: 60px;
+     }
+    }
+     
+  }
+
+  // toast 
+
 
   // restaurant cover 
 
