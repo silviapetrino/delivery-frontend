@@ -171,8 +171,8 @@ export default {
                 <p>Ingredients: {{ product.ingredients }}</p> 
                 <span>Price: {{ product.price }} &euro; </span>
 
-              <div class="actions-and-toast d-flex gap-2">
-                <div class="actions d-flex flex-column my-3">
+              <div  class="actions-and-toast d-flex gap-2">
+                <div style="width: 150px; height: 150px;" class="actions d-flex flex-column my-3">
                   <div class="mb-2">
                     <button
                       @click="decreaseQuantity(product)"
@@ -190,10 +190,10 @@ export default {
                   </button>
                 </div>
                     <!-- toast  -->
-                <div v-if="showToast[product.id]" class="toast-cs p-1 text-center d-flex" role="alert" aria-live="assertive" aria-atomic="true">
+                <div style="width: 200px;" v-if="showToast[product.id]" class="toast-cs text-center d-flex align-items-center justify-content-center " role="alert" aria-live="assertive" aria-atomic="true">
                   <div class="toast-header d-flex flex-column">
                     
-                    <img src="/img/cart.jpg" class="rounded me-2" style="width:100px;" alt="add-to-cart">
+                    <img style="width: 80px;" src="/img/cart.jpg" class="rounded me-2" alt="add-to-cart">
                   </div>
                   <div class="toast-body message">
                     <p class="message-title"><strong>Added to cart!</strong></p>
@@ -261,15 +261,13 @@ export default {
 
   // toast 
   .toast-cs {
-    border: 3px solid $secondary_color;
+    border: 3px solid $tertiary_color;
     border-radius: 20px;
-    width: 250px;
+    // width: 250px;
     -webkit-box-shadow: -13px 8px 16px -16px rgb(248, 6, 6);
     -moz-box-shadow:  -13px 8px 16px -16px rgba(120, 82, 17, 1);
-    box-shadow:  -13px 8px 16px -16px rgba(120, 82, 17, 1);
-     img {
-      width: 100px;
-     }
+    box-shadow:  -13px 8px 16px -16px rgb(247, 194, 21);
+  
      .message-title{
       color:$secondary_color;
      }
