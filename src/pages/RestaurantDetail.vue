@@ -131,7 +131,7 @@ export default {
   </div>
   <!-- /modal  -->
 
-  <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
+  <div  v-if="isLoading" class="loader-container">
     <Loader />
   </div>
   
@@ -221,6 +221,14 @@ export default {
 
 <style lang="scss" scoped>
 @use '../scss/main.scss' as *;
+
+.loader-container{
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  
+}
 
 #cart{
   border: 1px solid black;
