@@ -249,7 +249,7 @@ export default {
   <div>
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
-    <form novalidate class="w-50" @submit.prevent="handleSubmit">
+    <form novalidate class="payment-container" @submit.prevent="handleSubmit">
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
 
       <label for="name" class="form-label my-1">Name:</label>
@@ -305,5 +305,13 @@ form{
   color: red;
   margin: 10px;
 }
+.payment-container{
+  width:100%
+}
+@media all and (min-width: 932px){
+    .payment-container{
+    width: 50%;
+    }
+  }
 
 </style>

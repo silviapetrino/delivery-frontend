@@ -60,32 +60,34 @@ export default {
     <h3>Your are ordering from:</h3>
     <h4>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h4>
     <h5>Your order is:</h5>
-    <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless w-50">
-      <thead>
-        <tr class="text-center">
-          <th scope="col ">Products</th>
-          <th scope="col ">Quantity</th>
-          <th scope="col ">Price e/a</th>
-          <th scope="col ">Price </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(product , index) in store.cart" :key="index" class="line">
-          <th scope="row">{{ product.name }}</th>
-          <td class="text-center d-flex justify-content-center align-items-center">
-            <span class="quantity mx-1">{{ product.quantity }}</span>
-          </td >
-          <td class="text-center">{{ (product.price) }} &euro;</td>
-          <td class="text-center">{{ (product.price * product.quantity).toFixed(2) }} &euro;</td>
-        </tr>
-        <tr>
-          <th>Total:</th>
-          <th class="text-center">{{ getTotalQuantity() }}</th>
-          <th></th>
-          <th class="text-center">{{ getTotalPrice() }} &euro;</th>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless table-light table-hover">
+        <thead>
+          <tr class="text-center">
+            <th scope="col ">Products</th>
+            <th scope="col ">Quantity</th>
+            <th scope="col ">Price e/a</th>
+            <th scope="col ">Price </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(product , index) in store.cart" :key="index" class="line">
+            <th scope="row">{{ product.name }}</th>
+            <td class="text-center d-flex justify-content-center align-items-center">
+              <span class="quantity mx-1">{{ product.quantity }}</span>
+            </td >
+            <td class="text-center money">{{ (product.price) }} &euro;</td>
+            <td class="text-center money">{{ (product.price * product.quantity).toFixed(2) }} &euro;</td>
+          </tr>
+          <tr>
+            <th>Total:</th>
+            <th class="text-center">{{ getTotalQuantity() }}</th>
+            <th></th>
+            <th class="text-center money">{{ getTotalPrice() }} &euro;</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <h4>If you want to order more products from {{ getRestaurantName(store.cart[0].restaurant_id) }} click 
       <a class="link text-white text-decoration-none btn" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
         HERE
@@ -104,9 +106,26 @@ export default {
   }
   .link{
     background-color: $secondary_color;
+    padding: 5px 4px 2px;
+    margin-bottom:10px;
+    &:hover{
+      background-color:$tertiary_color;
+    }
   }
+ 
+  .table-container{
+    background-color: white;
+  }
+  @media all and (min-width: 932px){
+    .table-container{
+    width: 50%;
+    }
+  }
+
   .table > :not(caption) > * > * {
-    background-color: $primary_color;
+    background-color: white;
   }
+
+
 
 </style>

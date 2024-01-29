@@ -12,9 +12,9 @@ export default {
     removeFromCart(index){
       store.cart.splice(index , 1);
       this.saveCart();
-      if (store.cart.length === 0) {
+      /* if (store.cart.length === 0) {
         this.$router.push({ name: 'home' });
-      }
+      } */
     },
 
     saveCart() {
@@ -162,7 +162,7 @@ export default {
                 Go back to restaurant
                 </a>
                 <button type="button" class="btn btn-danger" style="border-radius: 15px;" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
-                  <router-link v-if="store.cart.length > 0" :to="{name: 'home'}" class="text-decoration-none">Clear cart</router-link>
+                  Clear Cart
                 </button>
                 <button type="button" style="border-radius: 15px;" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close"  @click="goToCheckOut()" v-if="store.cart.length > 0">
                   Go to payment<i class="fa-solid fa-credit-card ms-2"></i></button>
@@ -224,9 +224,6 @@ header {
           border-radius: 35%;
           margin: 0 5px 0 0;
         }
-      }
-    &:hover{
-      scale: 1.1;
       }
     }
   }
