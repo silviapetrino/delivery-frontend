@@ -43,6 +43,10 @@ export default {
       isEmailValid: null,
       isPhoneValid: null,
 
+      /* Payment Errors */
+
+      showPayError: false,
+
     };
   },
   methods: {
@@ -64,7 +68,7 @@ export default {
 
       if (this.isNameValid && this.isAddressValid && this.isEmailValid && this.isPhoneValid) {
         this.submitPayment();
-        this.sendMail();
+        
       } else {
         // Gestire il caso in cui la validazione fallisce
       }
@@ -81,14 +85,24 @@ export default {
           payment_method_nonce: payload.nonce,
           amount: store.totalPrice,
         }).then(response => {
-          console.log(response);
+          
+          if(!response.data.success){
+            
+            this.showPayError = true;
+
+          }else{
+            this.showPayError = false;
+            this.orderTotal = store.totalPrice;
+            this.sendOrderData();
+            this.sendMail();
+          }
+
         }).catch(error => {
           console.error('Error in payment checkout request:', error);
         });
       });
 
-      this.orderTotal = store.totalPrice;
-      this.sendOrderData();
+     
     },
 
     sendOrderData() {
@@ -249,7 +263,11 @@ export default {
   <div>
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
+    <div v-if="showPayError" class="alert alert-danger m-0 w-50" role="alert">
+      We're sorry, but we were unable to process your payment. Please check your payment details and try again.
+      </div>
     <form novalidate class="w-50" @submit.prevent="handleSubmit">
+
       <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
 
       <label for="name" class="form-label my-1">Name:</label>
@@ -304,6 +322,10 @@ form{
 .error{
   color: red;
   margin: 10px;
+}
+
+.braintree-method__icon-container.braintree-method__check-container{
+  display: none !important;
 }
 
 </style>
