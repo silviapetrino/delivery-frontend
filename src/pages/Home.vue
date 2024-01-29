@@ -73,22 +73,25 @@ export default {
       <p>Select the type of restaurant to filter your search</p>
     </div>
     <!-- slidex xl -->
-    <div class="d-flex flex-wrap justify-content-center mx-3">
+    <div class="  mx-3">
       <swiper
       ref="{swiperRef}"
-      :slidesPerView="12"
-      :spaceBetween="25"
-      :navigation="true"
+      :slidesPerView="10"
+      :spaceBetween="0"
+      :navigation="{ nextEl: '.my-custom-next', prevEl: '.my-custom-prev' }"
       :modules="modules"
+      style="width: 100%;"
       class="mySwiper d-none d-xl-block"
       >
 
-        <swiper-slide v-for="type in store.types" :key="type.id">
+        <swiper-slide v-for="type in store.types" :key="type.id" class="d-flex justify-content-center m-2">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type gap-1" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
+        <div class="swiper-button-prev my-custom-prev"></div>
+        <div class="swiper-button-next my-custom-next"></div>
       </swiper>
     </div>
 
@@ -103,7 +106,7 @@ export default {
         :modules="modules"
         class="mySwiper d-md-none"
       >
-        <swiper-slide v-for="type in store.types" :key="type.id">
+        <swiper-slide v-for="type in store.types" :key="type.id" >
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
@@ -274,4 +277,20 @@ h2 {
 .card p{
     padding: 10px 0;
 }
+
+
+.swiper-button-next {
+  margin-right: -10px;
+  font-weight: 900;
+}
+
+.swiper-button-prev{
+  margin-left: -10px;
+  font-weight: 900;
+}
+
+.swiper-slide.swiper-slide-active{
+  width: 400px;
+}
+
 </style>
