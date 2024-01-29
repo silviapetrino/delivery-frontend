@@ -60,7 +60,7 @@ export default {
     <h3>Your are ordering from:</h3>
     <h4>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h4>
     <h5>Your order is:</h5>
-    <div class="table-container w-50">
+    <div class="table-container">
       <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless table-light table-hover">
         <thead>
           <tr class="text-center">
@@ -76,14 +76,14 @@ export default {
             <td class="text-center d-flex justify-content-center align-items-center">
               <span class="quantity mx-1">{{ product.quantity }}</span>
             </td >
-            <td class="text-center">{{ (product.price) }} &euro;</td>
-            <td class="text-center">{{ (product.price * product.quantity).toFixed(2) }} &euro;</td>
+            <td class="text-center money">{{ (product.price) }} &euro;</td>
+            <td class="text-center money">{{ (product.price * product.quantity).toFixed(2) }} &euro;</td>
           </tr>
           <tr>
             <th>Total:</th>
             <th class="text-center">{{ getTotalQuantity() }}</th>
             <th></th>
-            <th class="text-center">{{ getTotalPrice() }} &euro;</th>
+            <th class="text-center money">{{ getTotalPrice() }} &euro;</th>
           </tr>
         </tbody>
       </table>
@@ -116,9 +116,16 @@ export default {
   .table-container{
     background-color: white;
   }
+  @media all and (min-width: 932px){
+    .table-container{
+    width: 50%;
+    }
+  }
 
   .table > :not(caption) > * > * {
     background-color: white;
   }
+
+
 
 </style>
