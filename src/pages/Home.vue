@@ -73,50 +73,43 @@ export default {
       <p>Select the type of restaurant to filter your search</p>
     </div>
     <!-- slidex xl -->
-    <div class="d-flex flex-wrap justify-content-center">
+    <div class="d-flex flex-wrap justify-content-center" style="width:90%; margin: 0 auto;">
       <swiper
       ref="{swiperRef}"
-      :slidesPerView="12"
-      :spaceBetween="25"
+      :slidesPerView="11"
+      :spaceBetween="10"
       :navigation="true"
       :modules="modules"
       class="mySwiper d-none d-xl-block"
       >
-        <swiper-slide></swiper-slide>
+        <swiper-slide style="width: 50px;"></swiper-slide>
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type gap-1" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
-        <swiper-slide></swiper-slide>
+        <swiper-slide style="width: 50px;"></swiper-slide>
       </swiper>
-    </div>
 
-
-
-    <div class="d-flex flex-wrap justify-content-center mx-1">
       <swiper
         ref="{swiperRef}"
-        :slidesPerView="5.5"
+        :slidesPerView="5"
         :spaceBetween="10"
         :navigation="true"
         :modules="modules"
         class="mySwiper d-md-none"
       >
-        <swiper-slide></swiper-slide>
+        <swiper-slide style="width: 50px;"></swiper-slide>
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
-        <swiper-slide></swiper-slide>
+        <swiper-slide style="width: 50px;"></swiper-slide>
       </swiper>
-    </div>
-    
 
-    <div class="d-flex flex-wrap justify-content-center">
       <swiper
         ref="{swiperRef}"
         :slidesPerView="7.5"
@@ -125,24 +118,24 @@ export default {
         :modules="modules"
         class="mySwiper d-none d-md-block d-xl-none "
       >
-        <swiper-slide></swiper-slide>
+        <swiper-slide style="width: 50px;"></swiper-slide>
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
-        <swiper-slide></swiper-slide>
+        <swiper-slide style="width: 50px;"></swiper-slide>
       </swiper>
 
     </div>
 
 
-    <div  v-if="isLoading" class="d-flex justify-content-center pt-5">
+    <div  v-if="isLoading" class="d-flex justify-content-center pt-5" style="width:90%; margin: 0 auto;">
       <Loader />
     </div>
     
-    <div v-else>
+    <div v-else style="width:90%; margin: 0 auto;">
       <h2 class="my-2 p-3" v-if="selectedTypes.length > 0">Restaurants found : {{ store.restaurants.length }}</h2>
           <div class="mt-3 container " v-if="store.restaurants.length">
               <div class="d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center gap-3">

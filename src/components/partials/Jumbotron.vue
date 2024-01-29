@@ -27,11 +27,15 @@ export default {
               <img src="/img/prova-1.png" class="d-block w-100 h-100 object-fit-cover " alt="slide-1">
               <a class="btn-cs" href="#search-restaurant">
                 <span>Find your favourite restaurant</span>
-                <i class="ms-1 fa-solid fa-utensils"></i>
+                <i class="ms-1 fa-solid fa-utensils ps-2"></i>
               </a>
             </div>
             <div class="carousel-item">
               <img src="/img/prova-2.png" class="d-block w-100 h-100 object-fit-cover " alt="slide-2">
+              <a class="btn-cs beta" href="#search-restaurant">
+                <span >Let's order something delicius</span>
+                <i class="fa-solid fa-face-laugh-wink ps-2"></i>
+              </a>
             </div>
           </div>
 
@@ -65,6 +69,10 @@ export default {
         background-color: $primary_color;
       }
     }
+    .beta{
+      background-color: $secondary_color;
+    }
+
 }
 
 @media all and (min-width: 440px){
