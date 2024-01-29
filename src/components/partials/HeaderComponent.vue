@@ -225,9 +225,6 @@ header {
           margin: 0 5px 0 0;
         }
       }
-    &:hover{
-      scale: 1.1;
-      }
     }
   }
   .cart-container{
