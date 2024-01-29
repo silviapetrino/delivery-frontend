@@ -86,7 +86,7 @@ export default {
   <nav class="d-flex align-items-center h-100 gap-5">
 
     <router-link :to="{name: 'home'}" class="navbar-brand fs-4 h-100" href="#">
-        <img src="/img/logo.jpg" alt="Deliveboo_logo" class="logo h-100 p-2">
+        <img src="/img/new-logo.jpg" alt="Deliveboo_logo" class="logo h-100 p-2">
         <span class= "brand d-none d-sm-inline-block ">DeliveBoo</span>
     </router-link>
 
