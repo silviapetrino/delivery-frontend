@@ -159,6 +159,11 @@ let pizza = new Pizza('pizza')
   justify-content: center;
 }
 
+#pizza{
+  height: 300px;
+  width: 300px;
+}
+
 </style>
 
 

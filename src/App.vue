@@ -1,10 +1,12 @@
 <script>
 import HeaderComponent from './components/partials/HeaderComponent.vue';
+import FooterComponent from './components/partials/FooterComponent.vue';
 
   export default {
     name: 'App',
     components: {
       HeaderComponent,
+      FooterComponent,
     },
     data(){
       return {
@@ -21,7 +23,7 @@ import HeaderComponent from './components/partials/HeaderComponent.vue';
       <RouterView />
     
   </div>
-  
+  <FooterComponent />
 </template>
 
 
