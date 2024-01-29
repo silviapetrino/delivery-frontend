@@ -11,7 +11,7 @@ export default {
   mounted() {
     setInterval(() => {
       this.nextSlide();
-    }, 10000);
+    }, 2000);
   },
 };
 </script>
@@ -24,14 +24,14 @@ export default {
 
           <div class="carousel-inner h-100">
             <div class="carousel-item active h-100">
-              <img src="/img/prova-1.jpg" class="d-block w-100 h-100 object-fit-cover " alt="slide-1">
+              <img src="/img/prova-1.png" class="d-block w-100 h-100 object-fit-cover " alt="slide-1">
               <a class="btn-cs" href="#search-restaurant">
                 <span>Find your favourite restaurant</span>
                 <i class="ms-1 fa-solid fa-utensils"></i>
               </a>
             </div>
             <div class="carousel-item">
-              <img src="/img/prova-2.jpg" class="d-block w-100 h-100 object-fit-cover " alt="slide-2">
+              <img src="/img/prova-2.png" class="d-block w-100 h-100 object-fit-cover " alt="slide-2">
             </div>
           </div>
 
@@ -55,11 +55,11 @@ export default {
       text-decoration: none;
       background-color: $detail_color;
       color: $primary_color;
-      padding: 5px 10px;
-      width: 140px;
-      bottom: 25px;
-      left: 100px;
-      font-size: 15px;
+      padding: 5px;
+      width: 150px;
+      bottom: 15px;
+      left: 90px;
+      font-size: 10px;
       &:hover{
         color: $detail_color;
         background-color: $primary_color;
@@ -71,8 +71,8 @@ export default {
 
   #jumbocarousel {
     .btn-cs {
-      bottom: 40px;
-      left: 125px;     
+      bottom: 20px;
+      left: 93px;     
       }
   }
 
@@ -83,8 +83,10 @@ export default {
 
   #jumbocarousel {
     .btn-cs {
-      bottom: 55px;
-      left: 145px;     
+      bottom: 25px;
+      left: 108px;
+      font-size: 12px;
+      width: 180px;     
       }
   }
 
@@ -95,8 +97,8 @@ export default {
 
     #jumbocarousel {
       .btn-cs {
-        bottom: 64px;
-        left: 168px;     
+        bottom: 30px;
+        left: 125px;     
       }
   }
  
@@ -105,8 +107,8 @@ export default {
 
   #jumbocarousel {
     .btn-cs {
-      bottom: 75px;
-      left: 180px;     
+      bottom: 35px;
+      left: 135px;     
     }
   }
 
@@ -116,10 +118,10 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-    width: 160px;
-    font-size: 16px;
-    bottom: 90px;
-    left: 200px;     
+    width: 215px;
+    font-size: 15px;
+    bottom: 40px;
+    left: 150px;     
     }
   }
 
@@ -129,7 +131,7 @@ export default {
 
   #jumbocarousel {
     .btn-cs {
-        left: 220px;     
+        left: 170px;     
       }
     }
 
@@ -139,8 +141,8 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      width: 220px;
-      left: 250px;     
+      width: 240px;
+      left: 180px;     
     }
   }
 
@@ -150,8 +152,11 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      left: 265px;
-      bottom: 120px;     
+      left: 200px;
+      bottom: 50px;
+      font-size: 17px;    
+      width: 250px;
+      padding: 6px; 
     }
   }
 
@@ -161,9 +166,10 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      width: 230px;
-      left: 300px;
-      bottom: 150px;     
+      width: 250px;
+      left: 225px;
+      bottom: 60px;
+      padding: 7px;     
     }
   }
 
@@ -173,9 +179,9 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      width: 230px;
-      left: 320px;
-      bottom: 160px;   
+      left: 243px;
+      bottom: 70px;
+      padding: 9px;   
     }
   }
 
@@ -185,9 +191,10 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      width: 280px;
-      font-size: 25px;
-      left: 360px; 
+      width: 290px;
+      font-size: 20px;
+      left: 260px;
+      padding: 10px; 
     }
   }
 
@@ -197,12 +204,12 @@ export default {
 @media all and (min-width: 1400px){
 
     #jumbocarousel {
-      height: 100vh;
-     
+
     .btn-cs {
-        width: 280px;
-        font-size: 25px;
-        left: 390px; 
+        width: 330px;
+        font-size: 22px;
+        left: 290px;
+        padding: 10px 15px; 
       }
     }
  
@@ -214,8 +221,8 @@ export default {
      
       .btn-cs {
           width: 350px;
-          left: 400px; 
-          padding: 20px 5px;
+          left: 310px; 
+          padding: 13px 18px; 
         }
       }
 }
