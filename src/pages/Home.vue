@@ -73,7 +73,7 @@ export default {
       <p>Select the type of restaurant to filter your search</p>
     </div>
     <!-- slidex xl -->
-    <div class="d-flex flex-wrap justify-content-center mx-3">
+    <div class="d-flex flex-wrap justify-content-center">
       <swiper
       ref="{swiperRef}"
       :slidesPerView="12"
@@ -82,13 +82,14 @@ export default {
       :modules="modules"
       class="mySwiper d-none d-xl-block"
       >
-
+        <swiper-slide></swiper-slide>
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type gap-1" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
+        <swiper-slide></swiper-slide>
       </swiper>
     </div>
 
@@ -103,12 +104,14 @@ export default {
         :modules="modules"
         class="mySwiper d-md-none"
       >
+        <swiper-slide></swiper-slide>
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
+        <swiper-slide></swiper-slide>
       </swiper>
     </div>
     
@@ -122,12 +125,14 @@ export default {
         :modules="modules"
         class="mySwiper d-none d-md-block d-xl-none "
       >
+        <swiper-slide></swiper-slide>
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
+        <swiper-slide></swiper-slide>
       </swiper>
 
     </div>
@@ -213,7 +218,9 @@ export default {
 h2 {
     font-weight: 700;
   }
-
+.type.active-type .image {
+  filter: grayscale(60%);
+}
 .type {
   width: 90px;
   background: none;

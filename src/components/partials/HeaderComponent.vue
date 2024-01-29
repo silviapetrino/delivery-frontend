@@ -12,9 +12,9 @@ export default {
     removeFromCart(index){
       store.cart.splice(index , 1);
       this.saveCart();
-      if (store.cart.length === 0) {
+      /* if (store.cart.length === 0) {
         this.$router.push({ name: 'home' });
-      }
+      } */
     },
 
     saveCart() {
@@ -134,7 +134,7 @@ export default {
             </thead>
             <tbody>
               <tr v-for="(product , index) in store.cart" :key="index" class="line">
-                <th scope="row">{{ product.name }}</th>
+                <th class="product">{{ product.name }}</th>
                 <td class="text-center d-flex justify-content-center align-items-center">
                   <button @click="() => decreaseQuantity(index)" class=" action btn btn-danger"><i class="fa-solid fa-minus"></i></button>
                   <span class="quantity mx-1">{{ product.quantity }}</span>
@@ -153,8 +153,8 @@ export default {
         
           <div v-if="store.cart.length > 0">
             <div class="my-2">
-              <h3>Your cart is from:</h3>
-              <h4>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h4>
+              <h4>Your cart is from:</h4>
+              <h3>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h3>
               <p class="fw-bold message">If you wish to order from a different restaurant, please empty your cart first; <br /> otherwise, proceed to checkout
               </p>
               <div class="d-flex gap-2">
@@ -162,7 +162,7 @@ export default {
                 Go back to restaurant
                 </a>
                 <button type="button" class="btn btn-danger" style="border-radius: 15px;" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
-                  <router-link v-if="store.cart.length > 0" :to="{name: 'home'}" class="text-decoration-none">Clear cart</router-link>
+                  Clear Cart
                 </button>
                 <button type="button" style="border-radius: 15px;" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close"  @click="goToCheckOut()" v-if="store.cart.length > 0">
                   Go to payment<i class="fa-solid fa-credit-card ms-2"></i></button>
@@ -225,9 +225,6 @@ header {
           margin: 0 5px 0 0;
         }
       }
-    &:hover{
-      scale: 1.1;
-      }
     }
   }
   .cart-container{
@@ -269,6 +266,11 @@ header {
     }
     .price{
       width: 100px;
+      vertical-align: middle;
+    }
+
+    .product{
+      vertical-align: middle;
     }
     .line{
       height: 20px;
