@@ -106,7 +106,7 @@ export default {
 <style lang="scss" scoped>
 @use '../../scss/main.scss' as *;
 footer {
-  margin: 50px 0 0 0;
+  // margin: 50px 0 0 0;
   padding: 50px 0 20px 0;
   background-color: $quaternary_color;
   color: $quinary_color;
@@ -156,5 +156,6 @@ ul {
   margin: 0;
   padding: 0;
 }
+
 
 </style>
