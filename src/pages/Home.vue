@@ -168,11 +168,47 @@ export default {
   
   
   </section>
+  <section id="app-section">
+    <div class="container">
+      <div class="app-row d-flex flex-wrap">
+        <div class="app-image text-center">
+          <img src="../../public/img/cart-2.png" alt="">
+        </div>
+        <div class="app-text">
+          <h3>Savor the convenience with every bite.</h3>
+          <p>Download the Deliveboo app and order wherever you want, whatever you want.</p>
+          <a href="#" class="me-1">
+            <img src="/public/img/scarica-da-app-store.png" alt="" width="125px">
+          </a>
+          <a href="#">
+            <img src="/public/img/google-store.png" alt="" width="125px">
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 
 <style lang="scss" scoped>
 @use '../scss/main.scss' as *;
+
+#app-section {
+  .app-image {
+    width: 100%;
+    img {
+      width: 350px;
+      border-radius: 20px;
+    }
+  }
+  .app-text {
+    width: 100%;
+    padding: 50px 20px;
+  }
+}
+#search-restaurant {
+  margin: 50px 0;
+}
 
 h2 {
     font-weight: 700;
@@ -273,5 +309,20 @@ h2 {
 
 .card p{
     padding: 10px 0;
+}
+
+@media all and (min-width: 992px) {
+  #app-section {
+  .app-image {
+    width: 60%;
+    img {
+      width: 550px;
+    }
+  }
+  .app-text {
+    width: 40%;
+    padding: 100px 0 0 20px;
+  }
+}
 }
 </style>
