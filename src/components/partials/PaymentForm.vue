@@ -2,12 +2,16 @@
 import { store } from '../../data/store';
 import axios from 'axios';
 import { DateTime } from 'luxon';
-
+import Loader from '../partials/Loader.vue';
 import { validateCustomerName, validateCustomerAddress, validateCustomerEmail, validateCustomerPhone } from '../../data/validation.js'; 
 
 
 export default {
   name: 'PaymentForm',
+  components:{
+    Loader,
+    
+  },
   data() {
     return {
 
@@ -21,6 +25,7 @@ export default {
       orderTotal: 0,
       currentDate: DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss'),
       dropinInstance: null,
+      dropinLoading: true,
 
       /* MAIL */
 
@@ -43,6 +48,10 @@ export default {
       isEmailValid: null,
       isPhoneValid: null,
 
+      /* Payment Errors */
+
+      showPayError: false,
+
     };
   },
   methods: {
@@ -64,7 +73,7 @@ export default {
 
       if (this.isNameValid && this.isAddressValid && this.isEmailValid && this.isPhoneValid) {
         this.submitPayment();
-        this.sendMail();
+        
       } else {
         // Gestire il caso in cui la validazione fallisce
       }
@@ -77,18 +86,33 @@ export default {
           return;
         }
 
+        this.dropinLoading = true;
+
         axios.post(`${store.apiUrl}payment/checkout`, {
           payment_method_nonce: payload.nonce,
           amount: store.totalPrice,
+          
         }).then(response => {
-          console.log(response);
+          
+          if(!response.data.success){
+            
+            this.dropinLoading = false;
+            this.showPayError = true;
+
+          }else{
+            this.dropinLoading = false;
+            this.showPayError = false;
+            this.orderTotal = store.totalPrice;
+            this.sendOrderData();
+            this.sendMail();
+          }
+
         }).catch(error => {
           console.error('Error in payment checkout request:', error);
         });
       });
 
-      this.orderTotal = store.totalPrice;
-      this.sendOrderData();
+     
     },
 
     sendOrderData() {
@@ -232,6 +256,7 @@ export default {
             console.error('Error creating Drop-in instance:', error);
           } else {
             this.dropinInstance = dropinInstance;
+            this.dropinLoading = false;
           }
         });
       }
@@ -249,8 +274,20 @@ export default {
   <div>
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
-    <form novalidate class="payment-container" @submit.prevent="handleSubmit">
-      <div id="dropin-container"></div> <!-- Container for Drop-in UI -->
+    
+    <form novalidate class="w-50" @submit.prevent="handleSubmit">
+
+      <div v-if="!showPayError" class="dropin-custom-container d-flex justify-content-center align-items-center">
+        <Loader class="w-50" v-if="dropinLoading" />
+        <div class="w-100">
+          <div :class="dropinLoading ? 'd-none' : d-block  " id="dropin-container"></div> <!-- Container for Drop-in UI -->
+        </div>
+      </div>
+
+      <div v-else class="alert alert-danger mb-2 w-100" role="alert">
+      We're sorry, but we were unable to process your payment. Please check your payment details and click <a href="">HERE</a> to reload and try again
+      .
+      </div>
 
       <label for="name" class="form-label my-1">Name:</label>
       <input id="name" class="form-control" type="text" v-model="customerName" placeholder="Your name">
@@ -305,13 +342,23 @@ form{
   color: red;
   margin: 10px;
 }
-.payment-container{
-  width:100%
-}
-@media all and (min-width: 932px){
-    .payment-container{
-    width: 50%;
-    }
-  }
 
+.braintree-method__icon-container.braintree-method__check-container{
+  display: none !important;
+}
+
+.dropin-custom-container{
+ 
+  height: 272.38px;
+  
+}
+
+.alert.alert-danger{
+  a{
+    color: red;
+    font-weight: 900;
+    
+    
+  }
+}
 </style>
