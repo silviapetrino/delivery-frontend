@@ -97,6 +97,9 @@ export default {
       <li v-if="$route.name === 'home'">
         <a href="#search-restaurant">Search Restaurant</a>
       </li>
+      <li>
+        <a :href="store.LoginUrl" target="blank">Sign in on our website</a>
+      </li>
     </ul>
 
   </nav>
