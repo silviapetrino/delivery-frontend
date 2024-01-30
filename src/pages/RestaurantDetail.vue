@@ -168,33 +168,9 @@ export default {
           <div class="col-lg-6 d-flex justify-content-center align-items-center" v-for="product in restaurant.products" :key="product.id" >
             
             <div v-if="product.visibility == 1"  class="card cs-card flex-row p-3 mb-3" >
-              <div class="info-product d-flex flex-column w-75">
-                <h4 class="card-title">{{product.name}} </h4>
-                <p>Ingredients: {{ product.ingredients }}</p> 
-                <span>Price: {{ product.price }} &euro; </span>
 
-              <div class="actions-and-toast d-flex gap-2 debug w-100 h-100">
-
-                <div style="width: 140px;" class="h-100 actions d-flex flex-column my-3">
-                  <div class="mb-1">
-                    <button
-                      @click="decreaseQuantity(product)"
-                      class="btn btn-danger p-2 fw-bold rounded-1"
-                    >
-                      <i class="fa-solid fa-minus"></i>
-                    </button>
-                    <span class="mx-1 quantity " >{{ product.tempQuantity }}</span>
-                    <button @click="increaseQuantity(product)" class="btn btn-success p-2 fw-bold rounded-1">
-                      <i class="fa-solid fa-plus"></i>
-                    </button>
-                  </div>
-                  <button @click="addToCart(product, product.tempQuantity)" class="add-product badge-cs p-2 fw-bold rounded-1">
-                    Add to cart
-                  </button>
-                </div>
-
-                    <!-- toast  -->
-                <div style="width: 150px; " v-if="showToast[product.id]" class="toast-cs text-center d-flex align-items-center justify-content-center p-3" role="alert" aria-live="assertive" aria-atomic="true">
+               <!-- toast  -->
+               <div style="width: 150px; " v-if="showToast[product.id]" class="toast-cs text-center d-flex align-items-center justify-content-center p-3" role="alert" aria-live="assertive" aria-atomic="true">
                   <div class="toast-body">
                       
                     <strong>
@@ -204,8 +180,42 @@ export default {
                   </div>
                 </div>
               <!-- /toast  -->
+
+              <div class="info-product d-flex flex-column w-75">
+                <div class="info-text">
+                  <h4 class="card-title">{{product.name}} </h4>
+                  <p>Ingredients: {{ product.ingredients }}</p> 
+                  <span>Price: {{ product.price }} &euro; </span>
+                </div>
+
+                <!-- LAVORA QUIIIIIIIIIIIIIIIII -->
+              <div class="actions-and-toast d-flex ">
+
+                <div class="h-100 w-100 actions d-flex align-items-center my-3">
+                  <div class=" inc-dec-container">
+                    <button
+                      @click="decreaseQuantity(product)"
+                      class="btn btn-danger custom fw-bold rounded-1"
+                    >
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="mx-1 quantity " >{{ product.tempQuantity }}</span>
+                    <button @click="increaseQuantity(product)" class="btn custom btn-success fw-bold rounded-1">
+                      <i class="fa-solid  fa-plus"></i>
+                    </button>
+                  </div>
+                  
+                  <div>
+                    <button @click="addToCart(product, product.tempQuantity)" class="add-product badge-cs p-2 fw-bold rounded-1">
+                      <i class="fa-solid fa-cart-shopping"></i>
+                      <span >Add to cart</span>
+                    </button>
+                  </div>
+
+                </div>
+
               </div>
-                
+              <!-- ---------------------------------------------------- -->
               </div>
               <div class="image-container d-flex flex-column align-items-center">
                 <img :src="product.image" alt="Card image cap">
@@ -218,6 +228,8 @@ export default {
       
     </div>
 
+
+
   </div>
     
 </template>
@@ -225,6 +237,31 @@ export default {
 <style lang="scss" scoped>
 @use '../scss/main.scss' as *;
 
+
+//last min debugging
+.inc-dec-container{
+  width: 120px;
+
+  .btn.custom{
+    padding: 0.22rem 0.5rem;
+    /* --bs-btn-padding-x: 0.75rem;
+    --bs-btn-padding-y: 0.375rem; */
+    i{
+      font-size: 0.7rem;
+    }
+  }
+  
+}
+
+.actions-and-toast{
+  position: absolute;
+  bottom: 0px;
+}
+
+.info-text{
+
+}
+//
 .loader-container{
   display: flex;
   height: 100vh;
@@ -255,17 +292,31 @@ export default {
   }
   .card.cs-card {
     width: 400px;
-    height: 250px;
+    height: 300px;
     padding: 5px;
     margin: 5px;
     box-shadow: 1px 3px 8px;
     color: $secondary_color;
     position: relative;
     .add-product {
-      width: 100px;
+      
+      font-size: 0.8rem;
+      padding: 0.22rem 0.5rem;
+      span{
+        display: none;
+      }
     }
     @media all and (min-width: 576px){
       width: 450px;
+      .add-product{
+        width: 80px;
+        i{
+          display: none;
+        }
+        span{
+          display: inline-block;
+        }
+      }
     }
     @media all and (min-width: 782px){
       width: 800px;
