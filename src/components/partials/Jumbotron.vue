@@ -60,7 +60,7 @@ export default {
       background-color: $detail_color;
       color: $primary_color;
       padding: 5px;
-      width: 150px;
+      width: 160px;
       bottom: 15px;
       left: 90px;
       font-size: 10px;
@@ -94,7 +94,7 @@ export default {
       bottom: 25px;
       left: 108px;
       font-size: 12px;
-      width: 180px;     
+      width: 185px;     
       }
   }
 
@@ -126,7 +126,7 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-    width: 215px;
+    width: 225px;
     font-size: 15px;
     bottom: 40px;
     left: 150px;     
@@ -174,10 +174,10 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      width: 250px;
+      width: 270px;
       left: 225px;
       bottom: 60px;
-      padding: 7px;     
+      padding: 8px;     
     }
   }
 
@@ -199,7 +199,7 @@ export default {
 
 #jumbocarousel {
   .btn-cs {
-      width: 290px;
+      width: 300px;
       font-size: 20px;
       left: 260px;
       padding: 10px; 
@@ -214,7 +214,7 @@ export default {
     #jumbocarousel {
 
     .btn-cs {
-        width: 330px;
+        width: 340px;
         font-size: 22px;
         left: 290px;
         padding: 10px 15px; 
