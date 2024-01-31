@@ -274,7 +274,8 @@ export default {
   <div>
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
-    
+    <p class="text-danger">Note: fields marked with an asterisk &ast; are required.</p>
+    <p>Card Details: <span style="color:red;">&ast;</span> </p>
     <form novalidate  @submit.prevent="handleSubmit">
 
       <div v-if="!showPayError" class="dropin-custom-container d-flex justify-content-center align-items-center">
@@ -289,21 +290,21 @@ export default {
       .
       </div>
 
-      <label for="name" class="form-label my-1">Name:</label>
+      <label for="name" class="form-label my-1">Name:<span style="color:red;">&ast;</span></label>
       <input id="name" class="form-control" type="text" v-model="customerName" placeholder="Your name">
       <div id="errorName" class="text-danger"></div>
 
-      <label for="address" class="form-label my-1">Address:</label>
+      <label for="address" class="form-label my-1">Address:<span style="color:red;">&ast;</span></label>
       <input id="address" class="form-control" type="text" v-model="customerAddress" placeholder="Your address">
       <div id="errorAddress" class="text-danger"></div>
 
 
-      <label for="email" class="form-label my-1">Email:</label>
+      <label for="email" class="form-label my-1">Email:<span style="color:red;">&ast;</span></label>
       <input id="email" class="form-control" type="text" v-model="customerEmail" placeholder="Your email">
       <div id="errorEmail" class="text-danger"></div>
 
 
-      <label for="phone" class="form-label my-1">Phone:</label>
+      <label for="phone" class="form-label my-1">Phone:<span style="color:red;">&ast;</span></label>
       <input id="phone" class="form-control" type="text" v-model="customerPhone" placeholder="Your phone">
       <div id="errorPhone" class="text-danger"></div>
 
