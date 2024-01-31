@@ -163,9 +163,9 @@ export default {
 
         <h2 class="text-center mb-5">Menu</h2>
 
-        <div class="container d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center w-100">
+        <div class="container d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center w-100 p-3">
 
-          <div class="col-lg-6 d-flex justify-content-center align-items-center" v-for="product in restaurant.products" :key="product.id" >
+          <div class="col-lg-6 d-flex justify-content-center align-items-center " v-for="product in restaurant.products" :key="product.id" >
             
             <div v-if="product.visibility == 1"  class="card cs-card flex-row p-3 mb-3" >
 

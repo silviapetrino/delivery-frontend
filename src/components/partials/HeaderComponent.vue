@@ -162,13 +162,18 @@ export default {
               </p>
               <div class="d-flex gap-2">
                 <a class="text-white text-decoration-none badge-cs d-flex justify-content-center align-items-center" :href="'/restaurant-detail/' + store.cart[0].restaurant_id">
-                Go back to restaurant
+                <span class="d-md-block d-none">Go back to restaurant </span>
+                <i class="fa-solid fa-chevron-left d-md-none pe-1"></i><i class="fa-solid fa-store d-md-none"></i>
                 </a>
                 <button type="button" class="btn btn-danger" style="border-radius: 15px;" data-bs-dismiss="offcanvas" aria-label="Close" v-if="store.cart.length > 0" @click="clearCart(product)">
-                  Clear Cart
+                  <span class="d-md-block d-none">Clear Cart</span> 
+                  <i class="fa-solid fa-trash d-md-none"></i>
                 </button>
                 <button type="button" style="border-radius: 15px;" class="btn btn-success " data-bs-dismiss="offcanvas" aria-label="Close"  @click="goToCheckOut()" v-if="store.cart.length > 0">
-                  Go to payment<i class="fa-solid fa-credit-card ms-2"></i></button>
+                  <span class="d-md-block d-none"> Go to payment</span>
+                  <i class="fa-solid fa-credit-card d-md-none pe-1"></i> 
+                  <i class="fa-solid fa-chevron-right d-md-none"></i>
+                </button>
               </div>
             </div>
           </div>
