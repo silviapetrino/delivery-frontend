@@ -96,18 +96,16 @@ export default {
         ref="{swiperRef}"
         :slidesPerView="4"
         :spaceBetween="10"
-        :navigation="true"
         :modules="modules"
         class="mySwiper d-md-none"
       >
-        <swiper-slide style="width: 50px;"></swiper-slide>
+       
         <swiper-slide v-for="type in store.types" :key="type.id">
           <button v-if="type.restaurants.length > 0" class="d-flex flex-column align-items-center type" :class="{'active-type': selectedTypes.includes(type.name)}" @click="toggleType(type.name)">
             <img class="image" :src="type.image" alt="{{ type.name }}">
             <span>{{ type.name }}</span>  
           </button>
         </swiper-slide>
-        <swiper-slide style="width: 50px;"></swiper-slide>
       </swiper>
 
       <swiper
