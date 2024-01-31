@@ -146,7 +146,7 @@ export default {
       <!-- restaurant details  -->
       <div class="restaurant cover w-100">
         <img class="w-100 h-100" :src="restaurant.image" :alt="restaurant.name" >
-        <div class="card text-center">
+        <div class="card name text-center">
           <h1 class="mb-2">{{restaurant.name}}</h1>
           <ul class="d-flex justify-content-center align-content-center flex-wrap">
             <li v-for="type in restaurant.types" :key="type.id" class="badge-cs me-3 mb-2">
@@ -161,7 +161,7 @@ export default {
       
       <div class="container restaurant details">
 
-        <h2 class="text-center mb-5">Menu</h2>
+        <h2 class="text-center  mt-4 mb-3">Menu</h2>
 
         <div class="container d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center w-100 p-3">
 
@@ -240,7 +240,7 @@ export default {
 
 //last min debugging
 .inc-dec-container{
-  width: 120px;
+  width: 100px;
 
   .btn.custom{
     padding: 0.22rem 0.5rem;
@@ -258,9 +258,6 @@ export default {
   bottom: 0px;
 }
 
-.info-text{
-
-}
 //
 .loader-container{
   display: flex;
@@ -290,9 +287,12 @@ export default {
       display: block;
     }
   }
+  .card.name{
+    border:5px solid $secondary_color;
+  }
   .card.cs-card {
-    width: 400px;
-    height: 300px;
+    width: 350px;
+    height: 340px;
     padding: 5px;
     margin: 5px;
     box-shadow: 1px 3px 8px;
@@ -373,6 +373,7 @@ export default {
   .restaurant.cover {
     height: 250px;
     position: relative;
+    border-bottom: 5px solid $secondary_color;
     img {
       object-fit: cover;
     }

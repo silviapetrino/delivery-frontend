@@ -275,7 +275,7 @@ h2 {
 .card {
   border-radius: 10px;
   filter: drop-shadow(0 5px 10px 0 #ffffff);
-  width: 400px;
+  width: 350px;
   height: 220px;
   background-color: $secondary_color;
   padding: 20px;

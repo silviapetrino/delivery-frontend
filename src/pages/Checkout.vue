@@ -61,7 +61,7 @@ export default {
     <h4>{{ getRestaurantName(store.cart[0].restaurant_id) }}</h4>
     <h5>Your order is:</h5>
     <div class="table-container">
-      <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless table-light table-hover">
+      <table v-if="store.cart.length > 0" class="table table-custom d-table table-borderless table-light">
         <thead>
           <tr class="text-center">
             <th scope="col ">Products</th>
