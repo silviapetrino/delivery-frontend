@@ -51,7 +51,7 @@ export default {
             </li>
           </ul>
         </div>
-        <div class="col">
+        <div class="col d-none d-md-block">
           <h4>Take Deliveboo With You</h4>
           <ul>
             <li class="mb-1">

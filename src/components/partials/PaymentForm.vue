@@ -275,7 +275,7 @@ export default {
     {{ console.log(currentDate) }}
     <h4>Complete the payment</h4>
     
-    <form novalidate class="w-50" @submit.prevent="handleSubmit">
+    <form novalidate  @submit.prevent="handleSubmit">
 
       <div v-if="!showPayError" class="dropin-custom-container d-flex justify-content-center align-items-center">
         <Loader class="w-50" v-if="dropinLoading" />
@@ -357,8 +357,11 @@ form{
   a{
     color: red;
     font-weight: 900;
-    
-    
+  }
+}
+@media all and (min-width: 992px) {
+  form{
+    width:50%;
   }
 }
 </style>

@@ -94,7 +94,7 @@ export default {
 
       <swiper
         ref="{swiperRef}"
-        :slidesPerView="5"
+        :slidesPerView="4"
         :spaceBetween="10"
         :navigation="true"
         :modules="modules"

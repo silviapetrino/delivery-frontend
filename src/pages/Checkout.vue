@@ -125,7 +125,9 @@ export default {
   .table > :not(caption) > * > * {
     background-color: white;
   }
-
+.money{
+  width:200px;
+}
 
 
 </style>

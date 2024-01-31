@@ -95,10 +95,10 @@ export default {
         <router-link :to="{name: 'home'}">Home</router-link>
       </li>
       <li v-if="$route.name === 'home'">
-        <a href="#search-restaurant">Search Restaurant</a>
+        <a href="#search-restaurant">Search</a>
       </li>
       <li>
-        <a :href="store.LoginUrl" target="blank">Sign in on our website</a>
+        <a :href="store.LoginUrl" target="blank">Sign in</a>
       </li>
     </ul>
 
