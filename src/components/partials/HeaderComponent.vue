@@ -272,10 +272,7 @@ header {
     display: inline-block;
     text-align: center;
     }
-    .price{
-      width: 100px;
-      vertical-align: middle;
-    }
+   
 
     .product{
       vertical-align: middle;
@@ -302,6 +299,10 @@ header {
       font-size: 15px;
 
     
+    }
+    .price{
+      width: 100px;
+      vertical-align: middle;
     }
 
     }
