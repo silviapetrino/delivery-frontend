@@ -355,6 +355,7 @@ export default {
     top: 47%;
     left: 47%;
     transform: translate(-50%, -50%);
+    z-index:5;
      .message-title{
       color:$secondary_color;
      }
