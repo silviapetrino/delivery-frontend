@@ -98,7 +98,7 @@ export default {
         <a href="#search-restaurant">Search</a>
       </li>
       <li>
-        <a :href="store.LoginUrl" target="blank">Sign in</a>
+        <a :href="store.LoginUrl" target="blank">Join us</a>
       </li>
     </ul>
 

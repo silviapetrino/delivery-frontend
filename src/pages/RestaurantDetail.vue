@@ -138,8 +138,8 @@ export default {
   <div v-else >
 
 
-    <div v-if="restaurant.products.length === 0">
-      <h2>Sorry, no products available for this resaurant.</h2>
+    <div v-if="restaurant.products.length === 0" class="container" style="height:calc( 100vh - 70px - 325px);">
+      <h2 class="text-center py-5">Sorry, no products available for this resaurant.</h2>
     </div>
     
     <div v-else>
@@ -236,8 +236,6 @@ export default {
 
 <style lang="scss" scoped>
 @use '../scss/main.scss' as *;
-
-
 //last min debugging
 .inc-dec-container{
   width: 100px;
@@ -288,7 +286,7 @@ export default {
     }
   }
   .card.name{
-    border:5px solid $secondary_color;
+    border:3px solid $secondary_color;
   }
   .card.cs-card {
     width: 350px;
@@ -373,7 +371,7 @@ export default {
   .restaurant.cover {
     height: 250px;
     position: relative;
-    border-bottom: 5px solid $secondary_color;
+    border-bottom: 3px solid $secondary_color;
     img {
       object-fit: cover;
     }
