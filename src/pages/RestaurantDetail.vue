@@ -88,7 +88,11 @@ export default {
       localStorage.setItem('cart', JSON.stringify(store.cart));
     },
   },
-
+  computed: {
+    visibleProducts() {
+      return this.restaurant.products.filter(product => product.visibility === 1);
+    },
+  },
   created() {
     const cart = JSON.parse(localStorage.getItem('cart'));
     if (cart) {
@@ -137,12 +141,6 @@ export default {
   
   <div v-else >
 
-
-    <div v-if="restaurant.products.length === 0" class="container" style="height:calc( 100vh - 70px - 325px);">
-      <h2 class="text-center py-5">Sorry, no products available for this resaurant.</h2>
-    </div>
-    
-    <div v-else>
       <!-- restaurant details  -->
       <div class="restaurant cover w-100">
         <img class="w-100 h-100" :src="restaurant.image" :alt="restaurant.name" >
@@ -158,16 +156,20 @@ export default {
       </div>
       
       <!-- ///restaurant details  -->
-      
+      <div v-if="restaurant.products.length === 0" class="container" style="height:calc( 100vh - 70px - 325px);">
+      <h2 class="text-center py-5 my-5">Sorry, no products available for this resaurant.</h2>
+    </div>
+    
+    <div v-else>
       <div class="container restaurant details">
 
         <h2 class="text-center  mt-4 mb-3">Menu</h2>
 
         <div class="container d-flex flex-column flex-md-row flex-md-wrap justify-content-center align-items-center w-100 p-3">
 
-          <div class="col-lg-6 d-flex justify-content-center align-items-center " v-for="product in restaurant.products" :key="product.id" >
+          <div class="col-lg-6 d-flex justify-content-center align-items-center" v-for="product in visibleProducts" :key="product.id">
             
-            <div v-if="product.visibility == 1"  class="card cs-card flex-row p-3 mb-3" >
+            <div class="card cs-card flex-row p-3 mb-3" >
 
                <!-- toast  -->
                <div style="width: 150px; " v-if="showToast[product.id]" class="toast-cs text-center d-flex align-items-center justify-content-center p-3" role="alert" aria-live="assertive" aria-atomic="true">
