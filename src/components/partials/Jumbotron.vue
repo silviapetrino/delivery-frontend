@@ -53,6 +53,7 @@ export default {
 
 #jumbocarousel {
     position: relative;
+    
     .btn-cs {
       position: absolute;
       border-radius: 25px;
