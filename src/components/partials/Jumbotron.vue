@@ -23,7 +23,7 @@ export default {
         <div id="jumbocarousel" class="carousel slide mb-3" data-bs-ride="carousel">
 
           <div class="carousel-inner h-100">
-            <div class="carousel-item active h-100">
+            <div class="carousel-item active">
               <img src="/img/prova-1.png" class="d-block w-100 h-100 object-fit-cover " alt="slide-1">
               <a class="btn-cs" href="#search-restaurant">
                 <span>Find your favourite restaurant</span>
@@ -79,6 +79,10 @@ export default {
 @media all and (min-width: 440px){
 
   #jumbocarousel {
+
+    .carousel-item{
+      height:625px;
+    }
     .btn-cs {
       bottom: 20px;
       left: 93px;     
